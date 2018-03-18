@@ -1,4 +1,4 @@
-package treffik.scene;
+package rabyrinth.scene;
 
 import com.badlogic.gdx.utils.Disposable;
 
@@ -9,6 +9,10 @@ public interface Scene extends Disposable {
 	void render(float deltaTime);
 
 	void pause();
+
+	void hide();
+
+	void show();
 
 	void resume();
 

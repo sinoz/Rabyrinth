@@ -1,12 +1,13 @@
-package treffik;
+package rabyrinth.test;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import rabyrinth.Rabyrinth;
 
 /** @author I.A */
-public final class Treffik {
+public final class Main {
 	/** The title of this game application. */
-	public static final String TITLE = "tReffik";
+	public static final String TITLE = "Rabyrinth";
 
 	public static void main(String[] args) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
@@ -16,6 +17,6 @@ public final class Treffik {
 		config.height = 600;
 		config.resizable = true;
 
-		new LwjglApplication(new TreffikListener(), config);
+		new LwjglApplication(new Rabyrinth(), config);
 	}
 }

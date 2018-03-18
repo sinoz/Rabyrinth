@@ -1,12 +1,22 @@
-package treffik.scene.game;
+package rabyrinth.scene.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import treffik.scene.Scene;
-import treffik.scene.game.world.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import rabyrinth.scene.Scene;
+import rabyrinth.scene.game.world.World;
+import rabyrinth.scene.game.world.map.MapController;
 
 /** @author I.A */
 public final class GameScene implements Scene {
+	/** The skin assets. */
+	private final Skin skin = new Skin(new FileHandle("resources/ui/uiskin.json"));
+
+	/** The user interface for this game scene. */
+	private final GameInterface gameInterface;
+
 	/** The camera. */
 	private final OrthographicCamera camera;
 
@@ -14,7 +24,9 @@ public final class GameScene implements Scene {
 	private final World world;
 
 	/** Creates a new {@link GameScene}. */
-	public GameScene() {
+	public GameScene(Stage stage) {
+		this.gameInterface = new GameInterface(skin, stage);
+
 		this.camera = new OrthographicCamera();
 		this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
@@ -37,6 +49,16 @@ public final class GameScene implements Scene {
 	}
 
 	@Override
+	public void hide() {
+		gameInterface.hide();
+	}
+
+	@Override
+	public void show() {
+		gameInterface.show();
+	}
+
+	@Override
 	public void resume() {
 		// TODO
 	}
@@ -48,6 +70,7 @@ public final class GameScene implements Scene {
 
 	@Override
 	public void dispose() {
+		gameInterface.dispose();
 		world.dispose();
 	}
 }

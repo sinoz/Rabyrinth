@@ -1,4 +1,4 @@
-package treffik.scene.game.world;
+package rabyrinth.scene.game.world;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.renderers.BatchTiledMapRenderer;
