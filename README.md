@@ -1,2 +1,2 @@
-# tReffik
-A serious game to help children learn how traffic lights control traffic.
+# Rabyrinth
+A serious game to help children with the computational thinking mindset.
