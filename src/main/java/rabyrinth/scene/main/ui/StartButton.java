@@ -18,7 +18,7 @@ public final class StartButton extends TextButton {
 		addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent changeEvent, Actor actor) {
-				scene.switchToGameScene();
+				scene.switchToLevelSelectScene();
 			}
 		});
 	}

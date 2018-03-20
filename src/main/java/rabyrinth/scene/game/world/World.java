@@ -1,9 +1,11 @@
 package rabyrinth.scene.game.world;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import rabyrinth.RabyrinthComponent;
 import rabyrinth.scene.game.world.map.MapController;
+import rabyrinth.scene.game.world.map.MapType;
 
 /** @author I.A */
 public final class World implements RabyrinthComponent {
@@ -17,11 +19,17 @@ public final class World implements RabyrinthComponent {
 	private final OrthographicCamera camera;
 
 	/** Creates a new {@link World}. */
-	public World(OrthographicCamera camera) {
-		this.camera = camera;
+	public World() {
+		this.camera = new OrthographicCamera();
+		this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		this.mapController = new MapController();
 		this.renderer = new WorldRenderer(new IsometricTiledMapRenderer(mapController.getActiveMap()), camera);
+	}
+
+	public void switchTo(MapType type) {
+		mapController.switchTo(type);
+		renderer.setRenderTargetMap(mapController.getActiveMap());
 	}
 
 	@Override

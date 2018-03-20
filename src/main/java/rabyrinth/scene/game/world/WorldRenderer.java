@@ -1,6 +1,7 @@
 package rabyrinth.scene.game.world;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.BatchTiledMapRenderer;
 import com.badlogic.gdx.utils.Disposable;
 
@@ -16,6 +17,11 @@ public final class WorldRenderer implements Disposable {
 	public WorldRenderer(BatchTiledMapRenderer renderer, OrthographicCamera camera) {
 		this.renderer = renderer;
 		this.camera = camera;
+	}
+
+	/** Switches to the specified {@link TiledMap} for rendering. */
+	public void setRenderTargetMap(TiledMap map) {
+		this.renderer.setMap(map);
 	}
 
 	public void render(float deltaTime) {

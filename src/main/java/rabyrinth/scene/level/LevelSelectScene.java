@@ -1,39 +1,38 @@
-package rabyrinth.scene.main;
+package rabyrinth.scene.level;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import rabyrinth.scene.Scene;
 import rabyrinth.scene.SceneController;
-import rabyrinth.scene.level.LevelSelectScene;
-import rabyrinth.scene.main.ui.Background;
+import rabyrinth.scene.game.GameScene;
 
 /** @author Sino */
-public final class MainMenuScene implements Scene {
+public final class LevelSelectScene implements Scene {
 	/** The skin assets. */
 	private final Skin skin = new Skin(Gdx.files.internal("resources/ui/uiskin.json"));
 
-	/** Controls the scenery. */
-	private final SceneController sceneController;
+	/** Controls scenes. */
+	private final SceneController controller;
 
-	/** The user interface background for this main menu. */
-	private final Background background;
-
-	/** The stage. */
+	/** The stage to add components to. */
 	private final Stage stage;
 
-	/** Creates a new {@link MainMenuScene}. */
-	public MainMenuScene(SceneController sceneController, Stage stage) {
+	/** The background for the level select menu. */
+	private final LevelSelectBackground background;
+
+	/** Creates a new {@link LevelSelectScene}. */
+	public LevelSelectScene(SceneController controller, Stage stage) {
+		this.controller = controller;
 		this.stage = stage;
-		this.sceneController = sceneController;
-		this.background = new Background(skin, this);
+		this.background = new LevelSelectBackground(skin, this);
 
 		stage.addActor(background);
 	}
 
-	/** Makes the transition from this scene to the {@link LevelSelectScene]. */
-	public void switchToLevelSelectScene() {
-		sceneController.switchTo(new LevelSelectScene(sceneController, stage));
+	/** TODO */
+	public void switchToGameScene() {
+		controller.switchTo(new GameScene(stage));
 	}
 
 	@Override
@@ -73,6 +72,6 @@ public final class MainMenuScene implements Scene {
 
 	@Override
 	public void dispose() {
-		// nothing
+		// TODO
 	}
 }

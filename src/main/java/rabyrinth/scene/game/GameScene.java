@@ -1,36 +1,40 @@
 package rabyrinth.scene.game;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import rabyrinth.scene.Scene;
 import rabyrinth.scene.game.world.World;
-import rabyrinth.scene.game.world.map.MapController;
 
 /** @author I.A */
 public final class GameScene implements Scene {
 	/** The skin assets. */
 	private final Skin skin = new Skin(new FileHandle("resources/ui/uiskin.json"));
 
-	/** The user interface for this game scene. */
-	private final GameInterface gameInterface;
+	/** The user interface table for this game scene to add components to. */
+	private final Table table;
 
-	/** The camera. */
-	private final OrthographicCamera camera;
+	/** The stage to add user interface components onto. */
+	private final Stage stage;
 
 	/** The game world. */
 	private final World world;
 
 	/** Creates a new {@link GameScene}. */
 	public GameScene(Stage stage) {
-		this.gameInterface = new GameInterface(skin, stage);
+		this.stage = stage;
 
-		this.camera = new OrthographicCamera();
-		this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		this.table = new Table(skin);
+		this.world = new World();
 
-		this.world = new World(camera);
+		configureTable();
+	}
+
+	/** Configures the {@link GameScene#table}. */
+	private void configureTable() {
+		table.setFillParent(true);
+		stage.addActor(table);
 	}
 
 	@Override
@@ -50,12 +54,12 @@ public final class GameScene implements Scene {
 
 	@Override
 	public void hide() {
-		gameInterface.hide();
+		table.setVisible(false);
 	}
 
 	@Override
 	public void show() {
-		gameInterface.show();
+		table.setVisible(true);
 	}
 
 	@Override
@@ -70,7 +74,6 @@ public final class GameScene implements Scene {
 
 	@Override
 	public void dispose() {
-		gameInterface.dispose();
 		world.dispose();
 	}
 }
