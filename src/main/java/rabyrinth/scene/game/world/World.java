@@ -1,70 +1,64 @@
 package rabyrinth.scene.game.world;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.BatchTiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.MathUtils;
 import rabyrinth.RabyrinthComponent;
-import rabyrinth.scene.game.world.map.MapController;
-import rabyrinth.scene.game.world.map.MapType;
 
 /** @author I.A */
 public final class World implements RabyrinthComponent {
-	/** The tile unit scale. */
-	private static final float TILE_UNIT_SCALE = 1 / 16F;
-
-	private final BatchTiledMapRenderer renderer;
-	private final OrthographicCamera camera;
-
-	/** Controls which map to draw. */
-	private final MapController mapController;
+	TiledMap tiledMap;
+	OrthographicCamera camera;
+	BatchTiledMapRenderer renderer;
+	Sprite avatar;
 
 	/** Creates a new {@link World}. */
 	public World(InputMultiplexer multiplexer) {
-		multiplexer.addProcessor(new WorldInputProcessor(this));
-
-		mapController = new MapController();
-		mapController.switchTo(MapType.ORTHOGONAL);
+		float w = Gdx.graphics.getWidth();
+		float h = Gdx.graphics.getHeight();
 
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 32, 32);
-
-		renderer = new OrthogonalTiledMapRenderer(mapController.getActiveMap(), TILE_UNIT_SCALE);
-	}
-
-	public void switchTo(MapType type) {
-		mapController.switchTo(type);
-//		renderer.setRenderTargetMap(mapController.getActiveMap());
-	}
-
-	public void zoom(boolean zoomIn) {
-		if (zoomIn) {
-			camera.zoom += 0.02;
-		} else {
-			camera.zoom -= 0.02;
-		}
-
+		camera.setToOrtho(false,w,h);
 		camera.update();
+
+		tiledMap = new TmxMapLoader().load("resources/maps/tmx/orthogonal.tmx");
+		renderer = new OrthogonalTiledMapRenderer(tiledMap);
+
+		avatar = new Sprite(new Texture(Gdx.files.internal("resources/knuckles.png")));
+
+		multiplexer.addProcessor(new WorldInputProcessor(this));
 	}
 
 	@Override
 	public void update(float deltaTime) {
-
+		camera.update();
 	}
 
 	@Override
 	public void render(float deltaTime) {
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		// renders the map using the camera coordinate system
 		renderer.setView(camera);
 		renderer.render();
+
+		// draws the avatar's knuckles sprite onto the sprite batch of the map renderer
+		renderer.getBatch().begin();
+		avatar.draw(renderer.getBatch());
+		renderer.getBatch().end();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		camera.viewportWidth = width;
-		camera.viewportHeight = height;
-		camera.update();
+
 	}
 
 	@Override
@@ -79,16 +73,16 @@ public final class World implements RabyrinthComponent {
 
 	@Override
 	public void pause() {
-		// TODO
+
 	}
 
 	@Override
 	public void resume() {
-		// TODO
+
 	}
 
 	@Override
 	public void dispose() {
-		renderer.dispose();
+
 	}
 }

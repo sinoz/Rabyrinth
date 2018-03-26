@@ -1,6 +1,7 @@
 package rabyrinth.scene.game.world;
 
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector3;
 
 public class WorldInputProcessor implements InputProcessor {
 	private final World world;
@@ -25,7 +26,10 @@ public class WorldInputProcessor implements InputProcessor {
 	}
 
 	@Override
-	public boolean touchDown(int i, int i1, int i2, int i3) {
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		Vector3 clickCoordinates = new Vector3(screenX,screenY,0);
+		Vector3 position = world.camera.unproject(clickCoordinates);
+		world.avatar.setPosition(position.x, position.y);
 		return false;
 	}
 
@@ -46,7 +50,7 @@ public class WorldInputProcessor implements InputProcessor {
 
 	@Override
 	public boolean scrolled(int i) {
-		world.zoom(i == 1);
+		// TODO
 
 		return false;
 	}
