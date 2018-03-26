@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import rabyrinth.scene.SceneController;
 
 /** @author I.A */
@@ -21,8 +22,8 @@ public final class Rabyrinth implements ApplicationListener {
 		// all listen for user input events (keyboard, mouse etc).
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 
-		stage = new Stage();
-		scenes = new SceneController(stage);
+		stage = new Stage(new ScreenViewport());
+		scenes = new SceneController(stage, inputMultiplexer);
 
 		// add the stage as an input processor for the user interface it will be carrying
 		inputMultiplexer.addProcessor(stage);

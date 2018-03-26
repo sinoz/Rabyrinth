@@ -1,6 +1,7 @@
 package rabyrinth.scene.level;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import rabyrinth.scene.Scene;
@@ -21,18 +22,21 @@ public final class LevelSelectScene implements Scene {
 	/** The background for the level select menu. */
 	private final LevelSelectBackground background;
 
+	private InputMultiplexer multiplexer;
+
 	/** Creates a new {@link LevelSelectScene}. */
-	public LevelSelectScene(SceneController controller, Stage stage) {
+	public LevelSelectScene(SceneController controller, Stage stage, InputMultiplexer multiplexer) {
 		this.controller = controller;
 		this.stage = stage;
 		this.background = new LevelSelectBackground(skin, this);
+		this.multiplexer = multiplexer;
 
 		stage.addActor(background);
 	}
 
 	/** TODO */
 	public void switchToGameScene() {
-		controller.switchTo(new GameScene(stage));
+		controller.switchTo(new GameScene(stage, multiplexer));
 	}
 
 	@Override

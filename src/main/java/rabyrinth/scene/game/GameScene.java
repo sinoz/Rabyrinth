@@ -1,10 +1,12 @@
 package rabyrinth.scene.game;
 
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import rabyrinth.scene.Scene;
+import rabyrinth.scene.game.ui.top.Background;
 import rabyrinth.scene.game.world.World;
 
 /** @author I.A */
@@ -22,11 +24,11 @@ public final class GameScene implements Scene {
 	private final World world;
 
 	/** Creates a new {@link GameScene}. */
-	public GameScene(Stage stage) {
+	public GameScene(Stage stage, InputMultiplexer multiplexer) {
 		this.stage = stage;
 
 		this.table = new Table(skin);
-		this.world = new World();
+		this.world = new World(multiplexer);
 
 		configureTable();
 	}
@@ -34,6 +36,21 @@ public final class GameScene implements Scene {
 	/** Configures the {@link GameScene#table}. */
 	private void configureTable() {
 		table.setFillParent(true);
+
+		table.add(new rabyrinth.scene.game.ui.top.Background(skin))
+				.prefHeight(100F)
+				.top()
+				.left()
+				.expandX()
+				.fillX();
+
+		table.add(new rabyrinth.scene.game.ui.side.Background(skin))
+				.prefWidth(100F)
+				.top()
+				.right()
+				.expandY()
+				.fillY();
+
 		stage.addActor(table);
 	}
 

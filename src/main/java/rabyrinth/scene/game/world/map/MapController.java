@@ -23,11 +23,11 @@ public final class MapController {
 		active = getTiledMap(type);
 	}
 
-	/** Returns the currently active {@link TiledMap}. Loads the {@link MapType#DEFAULT}
+	/** Returns the currently active {@link TiledMap}. Loads the {@link MapType#ISOMETRIC}
 	 * if no map is currently active. */
 	public TiledMap getActiveMap() {
 		if (active == null) {
-			active = getTiledMap(MapType.DEFAULT);
+			active = getTiledMap(MapType.ISOMETRIC);
 		}
 
 		return active;
@@ -36,6 +36,6 @@ public final class MapController {
 	/** Attempts to retrieve a previously stored {@link TiledMap} instance from the {@link MapController#cache}.
 	 * If not present, loads it from the {@link MapType#path}, stores it and returns it. */
 	private TiledMap getTiledMap(MapType type) {
-		return cache.computeIfAbsent(MapType.DEFAULT, key -> mapLoader.load(key.path().toString()));
+		return cache.computeIfAbsent(type, key -> mapLoader.load(key.path().toString()));
 	}
 }

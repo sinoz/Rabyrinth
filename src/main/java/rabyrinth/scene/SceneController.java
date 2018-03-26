@@ -1,5 +1,6 @@
 package rabyrinth.scene;
 
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import rabyrinth.RabyrinthComponent;
 import rabyrinth.scene.main.MainMenuScene;
@@ -13,10 +14,10 @@ public final class SceneController implements RabyrinthComponent {
 	private Scene scene;
 
 	/** Creates a new {@link SceneController}. */
-	public SceneController(Stage stage) {
+	public SceneController(Stage stage, InputMultiplexer multiplexer) {
 		this.stage = stage;
 
-		switchTo(new MainMenuScene(this, stage));
+		switchTo(new MainMenuScene(this, stage, multiplexer));
 	}
 
 	/** Switches to the specified {@link Scene}. */

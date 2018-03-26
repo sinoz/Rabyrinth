@@ -5,7 +5,8 @@ import java.nio.file.Paths;
 
 /** @author Sino */
 public enum MapType {
-	DEFAULT ("resources/maps/tmx/IsometricDemo.tmx");
+	ORTHOGONAL("resources/maps/tmx/orthogonal.tmx"),
+	ISOMETRIC("resources/maps/tmx/IsometricDemo.tmx");
 
 	/** The {@link Path} to the map. */
 	private final Path path;

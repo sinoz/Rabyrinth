@@ -10,6 +10,7 @@ public final class Background extends Table {
 	public Background(Skin skin, MainMenuScene scene) {
 		super(skin);
 
+		setBackground("default-background");
 		setFillParent(true);
 		setVisible(true);
 

@@ -1,0 +1,14 @@
+package rabyrinth.scene.game.ui.top;
+
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+
+public class LevelDisplay extends Label {
+	public LevelDisplay(int initialLevel, Skin skin) {
+		super("Level: " + initialLevel, skin);
+	}
+
+	public void setLevel(int level) {
+		setText("Level: " + level);
+	}
+}
