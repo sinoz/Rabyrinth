@@ -5,11 +5,11 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.google.common.eventbus.EventBus;
 import rabyrinth.scene.Scene;
-import rabyrinth.scene.game.ui.top.Background;
 import rabyrinth.scene.game.world.World;
 
-/** @author I.A */
+/** @author Sino */
 public final class GameScene implements Scene {
 	/** The skin assets. */
 	private final Skin skin = new Skin(new FileHandle("resources/ui/uiskin.json"));
@@ -24,7 +24,7 @@ public final class GameScene implements Scene {
 	private final World world;
 
 	/** Creates a new {@link GameScene}. */
-	public GameScene(Stage stage, InputMultiplexer multiplexer) {
+	public GameScene(Stage stage, InputMultiplexer multiplexer, EventBus eventBus) {
 		this.stage = stage;
 
 		this.table = new Table(skin);
@@ -55,38 +55,30 @@ public final class GameScene implements Scene {
 	}
 
 	@Override
-	public void update(float deltaTime) {
-		world.update(deltaTime);
+	public void update() {
+		world.update();
 	}
 
 	@Override
-	public void render(float deltaTime) {
-		world.render(deltaTime);
-	}
-
-	@Override
-	public void pause() {
-		// TODO
+	public void render() {
+		world.render();
 	}
 
 	@Override
 	public void hide() {
 		table.setVisible(false);
+		world.hide();
 	}
 
 	@Override
 	public void show() {
 		table.setVisible(true);
-	}
-
-	@Override
-	public void resume() {
-		// TODO
+		world.show();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO
+		world.resize(width, height);
 	}
 
 	@Override

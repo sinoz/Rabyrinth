@@ -4,7 +4,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import rabyrinth.Rabyrinth;
 
-/** @author I.A */
+/** @author Sino */
 public final class Main {
 	/** The title of this game application. */
 	public static final String TITLE = "Rabyrinth";

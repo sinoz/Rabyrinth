@@ -1,14 +1,20 @@
 package rabyrinth.scene.main.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.google.common.eventbus.EventBus;
+import rabyrinth.scene.event.ConfirmedExit;
 
 /** @author Sino */
 public final class ConfirmDialog extends Dialog {
+	/** The event bus to publish events to. */
+	private final EventBus eventBus;
+
 	/** Creates a new {@link ConfirmDialog}. */
-	ConfirmDialog(Skin skin) {
+	ConfirmDialog(Skin skin, EventBus eventBus) {
 		super("Warning", skin);
+
+		this.eventBus = eventBus;
 
 		setWidth(250F);
 		setHeight(250F);
@@ -25,7 +31,7 @@ public final class ConfirmDialog extends Dialog {
 	@Override
 	protected void result(Object object) {
 		if (object == Boolean.TRUE) {
-			Gdx.app.exit();
+			eventBus.post(new ConfirmedExit());
 		}
 	}
 }

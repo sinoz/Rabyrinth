@@ -4,20 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.BatchTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import rabyrinth.RabyrinthComponent;
+import com.badlogic.gdx.utils.Disposable;
 
-/** @author I.A */
-public final class World implements RabyrinthComponent {
-	TiledMap tiledMap;
-	OrthographicCamera camera;
-	BatchTiledMapRenderer renderer;
-	Sprite avatar;
+/** @author Sino */
+public final class World implements Disposable {
+	private TiledMap tiledMap;
+
+	private final OrthographicCamera camera;
+	private final BatchTiledMapRenderer renderer;
+	private final Avatar avatar;
 
 	/** Creates a new {@link World}. */
 	public World(InputMultiplexer multiplexer) {
@@ -31,18 +30,18 @@ public final class World implements RabyrinthComponent {
 		tiledMap = new TmxMapLoader().load("resources/maps/tmx/orthogonal.tmx");
 		renderer = new OrthogonalTiledMapRenderer(tiledMap);
 
-		avatar = new Sprite(new Texture(Gdx.files.internal("resources/knuckles.png")));
+		avatar = new Avatar(this);
 
 		multiplexer.addProcessor(new WorldInputProcessor(this));
 	}
 
-	@Override
-	public void update(float deltaTime) {
+	/** Updates the world and its subordinates. */
+	public void update() {
 		camera.update();
 	}
 
-	@Override
-	public void render(float deltaTime) {
+	/** Draws the world and its subordinates. */
+	public void render() {
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -56,33 +55,41 @@ public final class World implements RabyrinthComponent {
 		renderer.getBatch().end();
 	}
 
-	@Override
-	public void resize(int width, int height) {
-
-	}
-
-	@Override
+	/** Enables rendering of the game world. */
 	public void show() {
-
+		// TODO
 	}
 
-	@Override
+	/** Disables rendering of the game world. */
 	public void hide() {
-
+		// TODO
 	}
 
-	@Override
-	public void pause() {
-
-	}
-
-	@Override
-	public void resume() {
-
+	/** Reacts to a resize event, properly scaling the world. */
+	public void resize(int width, int height) {
+		// TODO
 	}
 
 	@Override
 	public void dispose() {
+		tiledMap.dispose();
+		renderer.dispose();
+		avatar.dispose();
+	}
 
+	public TiledMap getTiledMap() {
+		return tiledMap;
+	}
+
+	public OrthographicCamera getCamera() {
+		return camera;
+	}
+
+	public BatchTiledMapRenderer getRenderer() {
+		return renderer;
+	}
+
+	public Avatar getAvatar() {
+		return avatar;
 	}
 }

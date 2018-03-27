@@ -2,6 +2,7 @@ package rabyrinth.scene.main.ui;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.google.common.eventbus.EventBus;
 import rabyrinth.scene.main.MainMenuScene;
 
 /** @author Sino */
@@ -10,7 +11,7 @@ public final class Menu extends Window {
 	private static final String TITLE = "Select an Option";
 
 	/** Creates a new {@link Menu}. */
-	Menu(Skin skin, Background background, MainMenuScene scene) {
+	Menu(Skin skin, Background background, EventBus eventBus) {
 		super(TITLE, skin);
 
 		setModal(true);
@@ -20,7 +21,7 @@ public final class Menu extends Window {
 
 		defaults().width(125F);
 
-		add(new StartButton(getSkin(), scene)).center().row();
-		add(new ExitButton(getSkin(), background)).center().row();
+		add(new StartButton(getSkin(), eventBus)).center().row();
+		add(new ExitButton(getSkin(), background, eventBus)).center().row();
 	}
 }

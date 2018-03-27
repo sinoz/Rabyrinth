@@ -2,19 +2,15 @@ package rabyrinth.scene;
 
 import com.badlogic.gdx.utils.Disposable;
 
-/** @author I.A */
+/** @author Sino */
 public interface Scene extends Disposable {
-	void update(float deltaTime);
+	void update();
 
-	void render(float deltaTime);
-
-	void pause();
+	void render();
 
 	void hide();
 
 	void show();
-
-	void resume();
 
 	void resize(int width, int height);
 }
