@@ -13,7 +13,6 @@ public final class Background extends Table {
 		setDebug(true);
 		setBackground("default-background");
 		setFillParent(true);
-		setVisible(true);
 
 		add(new Menu(super.getSkin(), this, eventBus))
 				.width(150F)

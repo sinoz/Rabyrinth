@@ -9,15 +9,12 @@ import rabyrinth.scene.main.ui.Background;
 
 /** @author Sino */
 public final class MainMenuScene implements Scene {
-	/** The skin assets. */
-	private final Skin skin = new Skin(Gdx.files.internal("resources/ui/uiskin.json"));
-
 	/** The user interface background for this main menu. */
 	private final Background background;
 
 	/** Creates a new {@link MainMenuScene}. */
 	public MainMenuScene(Stage stage, EventBus eventBus) {
-		this.background = new Background(skin, eventBus);
+		this.background = new Background(new Skin(Gdx.files.internal("resources/ui/uiskin.json")), eventBus);
 
 		stage.addActor(background);
 	}

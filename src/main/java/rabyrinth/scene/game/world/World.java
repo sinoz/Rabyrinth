@@ -27,12 +27,11 @@ public final class World implements Disposable {
 
 	/** Creates a new {@link World}. */
 	public World(InputMultiplexer multiplexer) {
-		float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
+		float appWidth = Gdx.graphics.getWidth();
+		float appHeight = Gdx.graphics.getHeight();
 
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false,w,h);
-		camera.update();
+		camera.setToOrtho(false, appWidth, appHeight);
 
 		viewport = new ScreenViewport(camera);
 
