@@ -10,6 +10,7 @@ public final class Background extends Table {
 	public Background(Skin skin, EventBus eventBus) {
 		super(skin);
 
+		setDebug(true);
 		setBackground("default-background");
 		setFillParent(true);
 		setVisible(true);

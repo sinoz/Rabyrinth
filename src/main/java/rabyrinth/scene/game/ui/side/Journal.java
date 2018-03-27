@@ -8,6 +8,8 @@ public class Journal extends Table {
 	public Journal(Skin skin) {
 		super(skin);
 
+		setDebug(true);
+
 		add(new TextButton("Empty", skin));
 	}
 }

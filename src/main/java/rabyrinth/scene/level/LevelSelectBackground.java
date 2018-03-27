@@ -10,6 +10,7 @@ public final class LevelSelectBackground extends Table {
 	public LevelSelectBackground(Skin skin, EventBus eventBus) {
 		super(skin);
 
+		setDebug(true);
 		setBackground("default-background");
 		setFillParent(true);
 

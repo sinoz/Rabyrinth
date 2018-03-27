@@ -11,6 +11,8 @@ public final class Instructions extends Table {
 	public Instructions(Skin skin, EventBus eventBus) {
 		super(skin);
 
+		setDebug(true);
+
 		for (InstructionType type : InstructionType.values()) {
 			add(new InstructionButton(skin, type, eventBus)).padTop(20F).row();
 		}

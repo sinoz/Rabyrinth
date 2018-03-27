@@ -10,6 +10,7 @@ public final class Background extends Table {
 		super(skin);
 
 		setBackground("default-background");
+		setDebug(true);
 
 		Instructions instructions = new Instructions(skin, eventBus);
 		Journal journal = new Journal(skin);

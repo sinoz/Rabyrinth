@@ -9,9 +9,10 @@ public final class Background extends Table {
 		super(skin);
 
 		setBackground("default-background");
+		setDebug(true);
 
-		add(new ExitButton(skin, eventBus)).left();
-		add(new SoundToggle(skin));
-		add(new LevelDisplay(1, skin));
+		add(new ExitButton(skin, eventBus)).expandX().left();
+		add(new SoundToggle(skin)).expandX().center();
+		add(new LevelDisplay(1, skin)).expandX().right();
 	}
 }
