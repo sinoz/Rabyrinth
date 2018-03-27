@@ -53,7 +53,7 @@ public final class Rabyrinth implements ApplicationListener {
 
 	private void subscribeEventListeners() {
 		eventBus.register(new StartButtonClickedListener(this, stage, eventBus));
-		eventBus.register(new ConfirmedExitListener());
+		eventBus.register(new ConfirmedExitListener(stage));
 
 		eventBus.register(new LevelSelectedListener(this, multiplexer, stage, eventBus));
 	}
