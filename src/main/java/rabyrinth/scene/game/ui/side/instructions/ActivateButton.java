@@ -1,20 +1,21 @@
-package rabyrinth.scene.game.ui.top;
+package rabyrinth.scene.game.ui.side.instructions;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.google.common.eventbus.EventBus;
-import rabyrinth.scene.event.ConfirmedExit;
+import rabyrinth.scene.game.event.ActivateButtonClicked;
 
-public class ExitButton extends TextButton {
-	public ExitButton(Skin skin, EventBus eventBus) {
-		super("Exit", skin);
+/** @author Sino */
+public final class ActivateButton extends TextButton {
+	public ActivateButton(Skin skin, EventBus eventBus) {
+		super("Activate", skin);
 
 		addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent changeEvent, Actor actor) {
-				eventBus.post(new ConfirmedExit());
+				eventBus.post(new ActivateButtonClicked(changeEvent, actor));
 			}
 		});
 	}

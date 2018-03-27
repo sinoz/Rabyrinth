@@ -18,6 +18,9 @@ public final class World implements Disposable {
 	private final BatchTiledMapRenderer renderer;
 	private final Avatar avatar;
 
+	/** Simple flag to decide whether this world should be rendered or not. */
+	private boolean mayRender;
+
 	/** Creates a new {@link World}. */
 	public World(InputMultiplexer multiplexer) {
 		float w = Gdx.graphics.getWidth();
@@ -45,24 +48,26 @@ public final class World implements Disposable {
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		// renders the map using the camera coordinate system
-		renderer.setView(camera);
-		renderer.render();
+		if (mayRender) {
+			// renders the map using the camera coordinate system
+			renderer.setView(camera);
+			renderer.render();
 
-		// draws the avatar's knuckles sprite onto the sprite batch of the map renderer
-		renderer.getBatch().begin();
-		avatar.draw(renderer.getBatch());
-		renderer.getBatch().end();
+			// draws the avatar's knuckles sprite onto the sprite batch of the map renderer
+			renderer.getBatch().begin();
+			avatar.draw(renderer.getBatch());
+			renderer.getBatch().end();
+		}
 	}
 
 	/** Enables rendering of the game world. */
 	public void show() {
-		// TODO
+		mayRender = true;
 	}
 
 	/** Disables rendering of the game world. */
 	public void hide() {
-		// TODO
+		mayRender = false;
 	}
 
 	/** Reacts to a resize event, properly scaling the world. */
