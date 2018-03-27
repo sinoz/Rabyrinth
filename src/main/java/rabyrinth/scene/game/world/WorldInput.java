@@ -3,10 +3,11 @@ package rabyrinth.scene.game.world;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector3;
 
-public final class WorldInputProcessor implements InputProcessor {
+/** @author Sino */
+public final class WorldInput implements InputProcessor {
 	private final World world;
 
-	public WorldInputProcessor(World world) {
+	public WorldInput(World world) {
 		this.world = world;
 	}
 

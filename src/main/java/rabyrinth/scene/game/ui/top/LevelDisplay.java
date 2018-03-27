@@ -3,7 +3,8 @@ package rabyrinth.scene.game.ui.top;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
-public class LevelDisplay extends Label {
+/** @author Sino */
+public final class LevelDisplay extends Label {
 	public LevelDisplay(int initialLevel, Skin skin) {
 		super("Level: " + initialLevel, skin);
 	}

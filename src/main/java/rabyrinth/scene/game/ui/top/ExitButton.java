@@ -7,7 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.google.common.eventbus.EventBus;
 import rabyrinth.scene.event.ConfirmedExit;
 
-public class ExitButton extends TextButton {
+/** @author Sino */
+public final class ExitButton extends TextButton {
 	public ExitButton(Skin skin, EventBus eventBus) {
 		super("Exit", skin);
 

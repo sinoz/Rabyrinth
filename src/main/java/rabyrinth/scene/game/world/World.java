@@ -41,7 +41,7 @@ public final class World implements Disposable {
 
 		avatar = new Avatar(this);
 
-		multiplexer.addProcessor(new WorldInputProcessor(this));
+		multiplexer.addProcessor(new WorldInput(this));
 	}
 
 	/** Updates the world and its subordinates. */

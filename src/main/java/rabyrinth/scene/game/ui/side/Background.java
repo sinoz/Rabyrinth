@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.google.common.eventbus.EventBus;
 
+/** @author Sino */
 public final class Background extends Table {
 	public Background(Skin skin, EventBus eventBus) {
 		super(skin);
