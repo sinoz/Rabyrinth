@@ -2,6 +2,7 @@ package rabyrinth.scene.game.event;
 
 import com.google.common.eventbus.Subscribe;
 import rabyrinth.scene.game.InstructionType;
+import rabyrinth.scene.game.ui.side.Journal;
 import rabyrinth.scene.game.world.World;
 
 import java.util.Deque;
@@ -10,10 +11,13 @@ import java.util.Deque;
 public final class ActivateButtonClickedListener {
 	private final World world;
 
+	private final Journal journal;
+
 	private final Deque<InstructionType> instructions;
 
-	public ActivateButtonClickedListener(World world, Deque<InstructionType> instructions) {
+	public ActivateButtonClickedListener(Journal journal, World world, Deque<InstructionType> instructions) {
 		this.world = world;
+		this.journal = journal;
 		this.instructions = instructions;
 	}
 
@@ -48,5 +52,8 @@ public final class ActivateButtonClickedListener {
 
 		// clear instructions, prepare for next set of instructions
 		instructions.clear();
+
+		// and also clear journal
+		journal.clear();
 	}
 }

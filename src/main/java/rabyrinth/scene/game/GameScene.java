@@ -13,9 +13,6 @@ import rabyrinth.scene.game.world.World;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedDeque;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 /** @author Sino */
 public final class GameScene implements Scene {
@@ -37,6 +34,10 @@ public final class GameScene implements Scene {
 	/** The game world. */
 	private final World world;
 
+	/** The top and side elements. */
+	private final rabyrinth.scene.game.ui.side.Background sideBackground;
+	private final rabyrinth.scene.game.ui.top.Background topBackground;
+
 	/** Creates a new {@link GameScene}. */
 	public GameScene(Stage stage, InputMultiplexer multiplexer, EventBus eventBus) {
 		this.stage = stage;
@@ -46,27 +47,30 @@ public final class GameScene implements Scene {
 		this.table = new Table(skin);
 		this.world = new World(multiplexer);
 
-		subscribeListeners();
+		this.sideBackground = new rabyrinth.scene.game.ui.side.Background(skin, eventBus);
+		this.topBackground = new rabyrinth.scene.game.ui.top.Background(skin, eventBus);
+
 		configureTable();
+		subscribeListeners();
 	}
 
 	private void subscribeListeners() {
-		eventBus.register(new ActivateButtonClickedListener(world, instructionQueue));
-		eventBus.register(new SelectedInstructionListener(instructionQueue));
+		eventBus.register(new ActivateButtonClickedListener(sideBackground.getJournal(), world, instructionQueue));
+		eventBus.register(new SelectedInstructionListener(sideBackground.getJournal(), instructionQueue));
 	}
 
 	/** Configures the {@link GameScene#table}. */
 	private void configureTable() {
 		table.setFillParent(true);
 
-		table.add(new rabyrinth.scene.game.ui.top.Background(skin, eventBus))
+		table.add(topBackground)
 				.prefHeight(100F)
 				.top()
 				.left()
 				.expandX()
 				.fillX();
 
-		table.add(new rabyrinth.scene.game.ui.side.Background(skin, eventBus))
+		table.add(sideBackground)
 				.prefWidth(100F)
 				.top()
 				.right()

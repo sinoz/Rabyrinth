@@ -7,6 +7,8 @@ import com.google.common.eventbus.EventBus;
 
 /** @author Sino */
 public final class Background extends Table {
+	private final Journal journal;
+
 	public Background(Skin skin, EventBus eventBus) {
 		super(skin);
 
@@ -14,9 +16,13 @@ public final class Background extends Table {
 		setDebug(true);
 
 		Instructions instructions = new Instructions(skin, eventBus);
-		Journal journal = new Journal(skin);
+		journal = new Journal(skin);
 
 		SplitPane pane = new SplitPane(instructions, journal, false, skin);
 		add(pane).expandY().fillY();
+	}
+
+	public Journal getJournal() {
+		return journal;
 	}
 }
