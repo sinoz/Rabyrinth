@@ -22,7 +22,7 @@ public final class Avatar implements Disposable {
 
 	/** Moves this avatar to the specified tile coordinates. */
 	public void moveTo(float tileX, float tileY) {
-		sprite.setPosition(tileX, tileY);
+		sprite.setPosition(tileX * world.getTileWidth(), tileY * world.getTileHeight());
 	}
 
 	/** Updates this avatar. */
@@ -38,5 +38,13 @@ public final class Avatar implements Disposable {
 	@Override
 	public void dispose() {
 		sprite.getTexture().dispose();
+	}
+
+	public float getTileX() {
+		return sprite.getX() / world.getTileWidth();
+	}
+
+	public float getTileY() {
+		return sprite.getY() / world.getTileHeight();
 	}
 }

@@ -82,6 +82,22 @@ public final class World implements Disposable {
 		avatar.dispose();
 	}
 
+	public int getTileWidth() {
+		return tiledMap.getTileSets().getTileSet(0).getProperties().get("tilewidth", Integer.class);
+	}
+
+	public int getTileHeight() {
+		return tiledMap.getTileSets().getTileSet(0).getProperties().get("tileheight", Integer.class);
+	}
+
+	public int getMapWidth() {
+		return tiledMap.getProperties().get("width", Integer.class);
+	}
+
+	public int getMapHeight() {
+		return tiledMap.getProperties().get("height", Integer.class);
+	}
+
 	public TiledMap getTiledMap() {
 		return tiledMap;
 	}

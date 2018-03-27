@@ -30,7 +30,7 @@ public final class WorldInputProcessor implements InputProcessor {
 		Vector3 clickCoordinates = new Vector3(screenX, screenY,0);
 		Vector3 position = world.getCamera().unproject(clickCoordinates);
 
-		world.getAvatar().moveTo(position.x, position.y);
+		world.getAvatar().moveTo(position.x / world.getTileWidth(), position.y / world.getTileHeight());
 
 		return true;
 	}

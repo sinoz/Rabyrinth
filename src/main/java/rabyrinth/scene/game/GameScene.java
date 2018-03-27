@@ -11,7 +11,10 @@ import rabyrinth.scene.game.event.ActivateButtonClickedListener;
 import rabyrinth.scene.game.event.SelectedInstructionListener;
 import rabyrinth.scene.game.world.World;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /** @author Sino */
@@ -20,7 +23,7 @@ public final class GameScene implements Scene {
 	private final Skin skin = new Skin(new FileHandle("resources/ui/uiskin.json"));
 
 	/** The queue of {@link InstructionType}s to perform. */
-	private final Queue<InstructionType> instructionQueue = new ConcurrentLinkedQueue<>();
+	private final Deque<InstructionType> instructionQueue = new ArrayDeque<>(16);
 
 	/** The event bus to publish user interface events onto. */
 	private final EventBus eventBus;
@@ -48,7 +51,7 @@ public final class GameScene implements Scene {
 	}
 
 	private void subscribeListeners() {
-		eventBus.register(new ActivateButtonClickedListener(instructionQueue));
+		eventBus.register(new ActivateButtonClickedListener(world, instructionQueue));
 		eventBus.register(new SelectedInstructionListener(instructionQueue));
 	}
 
