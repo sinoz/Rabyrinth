@@ -9,10 +9,14 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.BatchTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 /** @author Sino */
 public final class World implements Disposable {
 	private TiledMap tiledMap;
+
+	private final Viewport viewport;
 
 	private final OrthographicCamera camera;
 	private final BatchTiledMapRenderer renderer;
@@ -29,6 +33,8 @@ public final class World implements Disposable {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false,w,h);
 		camera.update();
+
+		viewport = new ScreenViewport(camera);
 
 		tiledMap = new TmxMapLoader().load("resources/maps/tmx/orthogonal.tmx");
 		renderer = new OrthogonalTiledMapRenderer(tiledMap);
@@ -72,7 +78,7 @@ public final class World implements Disposable {
 
 	/** Reacts to a resize event, properly scaling the world. */
 	public void resize(int width, int height) {
-		// TODO
+		viewport.update(width, height, false);
 	}
 
 	@Override

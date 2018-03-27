@@ -22,6 +22,14 @@ public final class Avatar implements Disposable {
 
 	/** Moves this avatar to the specified tile coordinates. */
 	public void moveTo(float tileX, float tileY) {
+		if (tileX < 0 || tileX >= world.getMapWidth()) {
+			return;
+		}
+
+		if (tileY < 0 || tileY >= world.getMapHeight()) {
+			return;
+		}
+
 		sprite.setPosition(tileX * world.getTileWidth(), tileY * world.getTileHeight());
 	}
 
