@@ -13,6 +13,9 @@ public final class Avatar implements Disposable {
 	/** The sprite for this avatar. */
 	private final Sprite sprite;
 
+	/** The current {@link Direction} this avatar is facing. */
+	private Direction currentDirection = Direction.SOUTH;
+
 	/** Creates a new {@link Avatar}. */
 	public Avatar(World world, TextureRegion initialFrame) {
 		this.world = world;
@@ -45,6 +48,18 @@ public final class Avatar implements Disposable {
 	@Override
 	public void dispose() {
 		sprite.getTexture().dispose();
+	}
+
+	public Sprite getSprite() {
+		return sprite;
+	}
+
+	public Direction getCurrentDirection() {
+		return currentDirection;
+	}
+
+	public void setCurrentDirection(Direction currentDirection) {
+		this.currentDirection = currentDirection;
 	}
 
 	public float getTileX() {

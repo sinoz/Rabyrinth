@@ -4,12 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.BatchTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -24,6 +26,13 @@ public final class World implements Disposable {
 	private final OrthographicCamera camera;
 	private final BatchTiledMapRenderer renderer;
 	private final Avatar avatar;
+
+	private final Animation<TextureRegion> downAnimation;
+	private final Animation<TextureRegion> upAnimation;
+	private final Animation<TextureRegion> leftAnimation;
+	private final Animation<TextureRegion> rightAnimation;
+
+	private float stateTime;
 
 	/** Simple flag to decide whether this world should be rendered or not. */
 	private boolean mayRender;
@@ -42,15 +51,36 @@ public final class World implements Disposable {
 		renderer = new OrthogonalTiledMapRenderer(tiledMap);
 
 		TextureAtlas avatarAtlas = assets.get(Avatars.KNUCKLES);
-		TextureRegion initialFrame = avatarAtlas.findRegion("down");
 
-		avatar = new Avatar(this, initialFrame);
+		Array<TextureAtlas.AtlasRegion> downFrames = avatarAtlas.findRegions("down");
+		Array<TextureAtlas.AtlasRegion> upFrames = avatarAtlas.findRegions("up");
+		Array<TextureAtlas.AtlasRegion> leftFrames = avatarAtlas.findRegions("left");
+		Array<TextureAtlas.AtlasRegion> rightFrames = avatarAtlas.findRegions("right");
+
+		downAnimation = new Animation<>(0.25F, downFrames, Animation.PlayMode.LOOP);
+		upAnimation = new Animation<>(0.25F, upFrames, Animation.PlayMode.LOOP);
+		rightAnimation = new Animation<>(0.25F, rightFrames, Animation.PlayMode.LOOP);
+		leftAnimation = new Animation<>(0.25F, leftFrames, Animation.PlayMode.LOOP);
+
+		avatar = new Avatar(this, downFrames.get(0));
 
 		multiplexer.addProcessor(new WorldInput(this));
 	}
 
 	/** Updates the world and its subordinates. */
 	public void update(float deltaTime) {
+		stateTime += deltaTime;
+
+		if (avatar.getCurrentDirection() == Direction.SOUTH) {
+			avatar.getSprite().setRegion(downAnimation.getKeyFrame(stateTime));
+		} else if (avatar.getCurrentDirection() == Direction.NORTH) {
+			avatar.getSprite().setRegion(upAnimation.getKeyFrame(stateTime));
+		} else if (avatar.getCurrentDirection() == Direction.EAST) {
+			avatar.getSprite().setRegion(rightAnimation.getKeyFrame(stateTime));
+		} else if (avatar.getCurrentDirection() == Direction.WEST) {
+			avatar.getSprite().setRegion(leftAnimation.getKeyFrame(stateTime));
+		}
+
 		camera.update();
 	}
 

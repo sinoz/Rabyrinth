@@ -9,53 +9,53 @@ left
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: -1
-left_jump
+  index: 0
+left
   rotate: false
   xy: 64, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: -1
+  index: 1
 right
   rotate: false
   xy: 0, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: -1
-right_jump
+  index: 0
+right
   rotate: false
   xy: 64, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: -1
+  index: 1
 down
   rotate: false
   xy: 0, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: -1
-down_jump
+  index: 0
+down
   rotate: false
   xy: 64, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: -1
+  index: 1
 up
   rotate: false
   xy: 0, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: -1
-up_jump
+  index: 0
+up
   rotate: false
   xy: 64, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: -1
+  index: 1
