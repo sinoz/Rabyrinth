@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.BatchTiledMapRenderer;
@@ -36,10 +38,13 @@ public final class World implements Disposable {
 
 		viewport = new ScreenViewport(camera);
 
-		tiledMap = new TmxMapLoader().load("resources/maps/tmx/orthogonal.tmx");
+		tiledMap = new TmxMapLoader().load("resources/maps/tmx/levels/1.tmx");
 		renderer = new OrthogonalTiledMapRenderer(tiledMap);
 
-		avatar = new Avatar(this, assets.get(Avatars.KNUCKLES));
+		TextureAtlas avatarAtlas = assets.get(Avatars.KNUCKLES);
+		TextureRegion initialFrame = avatarAtlas.findRegion("down");
+
+		avatar = new Avatar(this, initialFrame);
 
 		multiplexer.addProcessor(new WorldInput(this));
 	}

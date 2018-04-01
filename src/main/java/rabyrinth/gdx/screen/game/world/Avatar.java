@@ -1,8 +1,8 @@
 package rabyrinth.gdx.screen.game.world;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Disposable;
 
 /** @author Sino */
@@ -14,9 +14,9 @@ public final class Avatar implements Disposable {
 	private final Sprite sprite;
 
 	/** Creates a new {@link Avatar}. */
-	public Avatar(World world, Texture texture) {
+	public Avatar(World world, TextureRegion initialFrame) {
 		this.world = world;
-		this.sprite = new Sprite(texture);
+		this.sprite = new Sprite(initialFrame);
 	}
 
 	/** Moves this avatar to the specified tile coordinates. */
