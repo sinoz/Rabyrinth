@@ -14,7 +14,9 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.google.common.collect.ImmutableMap;
 import rabyrinth.gdx.asset.Avatars;
+import rabyrinth.gdx.screen.game.world.frame.FrameSet;
 
 /** @author Sino */
 public final class World implements Disposable {
@@ -56,25 +58,32 @@ public final class World implements Disposable {
 		Array<TextureAtlas.AtlasRegion> leftFrames = avatarAtlas.findRegions("left");
 		Array<TextureAtlas.AtlasRegion> rightFrames = avatarAtlas.findRegions("right");
 
+		FrameSet frames = new FrameSet(ImmutableMap.<Direction, Array<TextureAtlas.AtlasRegion>>builder()
+				.put(Direction.SOUTH, downFrames)
+				.put(Direction.NORTH, upFrames)
+				.put(Direction.EAST, rightFrames)
+				.put(Direction.WEST, leftFrames)
+				.build());
+
 		downAnimation = new Animation<>(0.25F, downFrames, Animation.PlayMode.LOOP);
 		upAnimation = new Animation<>(0.25F, upFrames, Animation.PlayMode.LOOP);
 		rightAnimation = new Animation<>(0.25F, rightFrames, Animation.PlayMode.LOOP);
 		leftAnimation = new Animation<>(0.25F, leftFrames, Animation.PlayMode.LOOP);
 
-		avatar = new Avatar(this, downFrames.get(0));
+		avatar = new Avatar(this, frames);
 	}
 
 	/** Updates the world and its subordinates. */
 	public void update(float deltaTime) {
 		stateTime += deltaTime;
 
-		if (avatar.getCurrentDirection() == Direction.SOUTH) {
+		if (avatar.currentDirection == Direction.SOUTH) {
 			avatar.getSprite().setRegion(downAnimation.getKeyFrame(stateTime));
-		} else if (avatar.getCurrentDirection() == Direction.NORTH) {
+		} else if (avatar.currentDirection == Direction.NORTH) {
 			avatar.getSprite().setRegion(upAnimation.getKeyFrame(stateTime));
-		} else if (avatar.getCurrentDirection() == Direction.EAST) {
+		} else if (avatar.currentDirection == Direction.EAST) {
 			avatar.getSprite().setRegion(rightAnimation.getKeyFrame(stateTime));
-		} else if (avatar.getCurrentDirection() == Direction.WEST) {
+		} else if (avatar.currentDirection == Direction.WEST) {
 			avatar.getSprite().setRegion(leftAnimation.getKeyFrame(stateTime));
 		}
 

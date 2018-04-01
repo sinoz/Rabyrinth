@@ -3,6 +3,7 @@ package rabyrinth.gdx.screen.game.event;
 import com.google.common.eventbus.Subscribe;
 import rabyrinth.gdx.screen.game.InstructionType;
 import rabyrinth.gdx.screen.game.ui.side.Journal;
+import rabyrinth.gdx.screen.game.world.Direction;
 import rabyrinth.gdx.screen.game.world.World;
 
 import java.util.Deque;
@@ -27,12 +28,19 @@ public final class ActivateButtonClickedListener {
 			InstructionType type = instructions.poll();
 			switch (type) {
 				case TURN:
-					// TODO
+					if (world.getAvatar().currentDirection == Direction.EAST) {
+						world.getAvatar().currentDirection = Direction.SOUTH;
+					} else if (world.getAvatar().currentDirection == Direction.SOUTH) {
+						world.getAvatar().currentDirection = Direction.WEST;
+					} else if (world.getAvatar().currentDirection == Direction.WEST) {
+						world.getAvatar().currentDirection = Direction.NORTH;
+					} else if (world.getAvatar().currentDirection == Direction.NORTH) {
+						world.getAvatar().currentDirection = Direction.EAST;
+					}
 
 					break;
 				case WALK:
-					// TODO
-					world.getAvatar().moveTo(world.getAvatar().getTileX() + 1, world.getAvatar().getTileY());
+					world.getAvatar().pending.addLast(world.getAvatar().currentDirection);
 
 					break;
 			}

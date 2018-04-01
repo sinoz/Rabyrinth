@@ -2,8 +2,10 @@ package rabyrinth.gdx.screen.game.world;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.Queue;
+import rabyrinth.gdx.screen.game.world.frame.FrameSet;
 
 /** @author Sino */
 public final class Avatar implements Disposable {
@@ -13,31 +15,65 @@ public final class Avatar implements Disposable {
 	/** The sprite for this avatar. */
 	private final Sprite sprite;
 
+	/** The set of frames for this avatar. */
+	private final FrameSet frameSet;
+
+	/** A queue of {@link Direction}s */
+	public final Queue<Direction> pending = new Queue<>();
+
 	/** The current {@link Direction} this avatar is facing. */
-	private Direction currentDirection = Direction.SOUTH;
+	public Direction currentDirection = Direction.SOUTH;
+
+	/** The tile points where this avatar is moving from and moving to. */
+	private Vector2 movingFrom;
+	private Vector2 movingTo;
 
 	/** Creates a new {@link Avatar}. */
-	public Avatar(World world, TextureRegion initialFrame) {
+	public Avatar(World world, FrameSet frameSet) {
 		this.world = world;
-		this.sprite = new Sprite(initialFrame);
-	}
-
-	/** Moves this avatar to the specified tile coordinates. */
-	public void moveTo(float tileX, float tileY) {
-		if (tileX < 0 || tileX >= world.getMapWidth()) {
-			return;
-		}
-
-		if (tileY < 0 || tileY >= world.getMapHeight()) {
-			return;
-		}
-
-		sprite.setPosition(tileX * world.getTileWidth(), tileY * world.getTileHeight());
+		this.frameSet = frameSet;
+		this.sprite = new Sprite(frameSet.get(Direction.SOUTH).get(0));
 	}
 
 	/** Updates this avatar. */
 	public void update() {
-		// TODO
+		if (movingTo == null && pending.size > 0) {
+			Direction nextDirection = pending.removeFirst();
+
+			float currentTileX = sprite.getX() / world.getTileWidth();
+			float currentTileY = sprite.getY() / world.getTileHeight();
+
+			switch (nextDirection) {
+				case SOUTH:
+					movingTo = new Vector2(currentTileX, currentTileY - 1);
+
+					break;
+				case NORTH:
+					movingTo = new Vector2(currentTileX, currentTileY + 1);
+
+					break;
+				case EAST:
+					movingTo = new Vector2(currentTileX + 1, currentTileY);
+
+					break;
+				case WEST:
+					movingTo = new Vector2(currentTileX - 1, currentTileY);
+
+					break;
+				default:
+					throw new IllegalArgumentException("Unsupported direction: " + nextDirection);
+			}
+
+			currentDirection = nextDirection;
+			sprite.setRegion(frameSet.get(currentDirection).get(0));
+
+			movingFrom = new Vector2(currentTileX, currentTileY);
+		}
+
+		if (movingTo != null) {
+			movingFrom = null;
+			movingTo = null;
+		}
 	}
 
 	/** Draws this avatar. */
@@ -52,14 +88,6 @@ public final class Avatar implements Disposable {
 
 	public Sprite getSprite() {
 		return sprite;
-	}
-
-	public Direction getCurrentDirection() {
-		return currentDirection;
-	}
-
-	public void setCurrentDirection(Direction currentDirection) {
-		this.currentDirection = currentDirection;
 	}
 
 	public float getTileX() {
