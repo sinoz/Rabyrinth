@@ -3,10 +3,7 @@ package rabyrinth.gdx.screen.game;
 /** @author Sino */
 public enum InstructionType {
 	WALK ("Walk"),
-	TURN ("Turn"),
-	WAIT ("Wait"),
-	JUMP ("Jump"),
-	LOOP ("Loop");
+	TURN ("Turn");
 
 	private final String label;
 

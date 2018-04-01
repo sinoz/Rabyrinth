@@ -35,18 +35,6 @@ public final class ActivateButtonClickedListener {
 					world.getAvatar().moveTo(world.getAvatar().getTileX() + 1, world.getAvatar().getTileY());
 
 					break;
-				case JUMP:
-					// TODO
-
-					break;
-				case LOOP:
-					// TODO
-
-					break;
-				case WAIT:
-					// TODO
-
-					break;
 			}
 		}
 

@@ -1,7 +1,6 @@
 package rabyrinth.gdx.screen.game.world;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -38,7 +37,7 @@ public final class World implements Disposable {
 	private boolean mayRender;
 
 	/** Creates a new {@link World}. */
-	public World(InputMultiplexer multiplexer, AssetManager assets) {
+	public World(AssetManager assets) {
 		float appWidth = Gdx.graphics.getWidth();
 		float appHeight = Gdx.graphics.getHeight();
 
@@ -63,8 +62,6 @@ public final class World implements Disposable {
 		leftAnimation = new Animation<>(0.25F, leftFrames, Animation.PlayMode.LOOP);
 
 		avatar = new Avatar(this, downFrames.get(0));
-
-		multiplexer.addProcessor(new WorldInput(this));
 	}
 
 	/** Updates the world and its subordinates. */

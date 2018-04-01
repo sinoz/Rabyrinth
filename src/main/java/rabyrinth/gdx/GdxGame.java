@@ -19,9 +19,6 @@ public final class GdxGame extends Game {
 	/** An event bus to publish user interface events onto. */
 	private EventBus eventBus;
 
-	/** The multiplexer of input processors. */
-	private InputMultiplexer multiplexer;
-
 	/** Manages all of the required assets. */
 	private AssetManager assets;
 
@@ -30,32 +27,20 @@ public final class GdxGame extends Game {
 
 	@Override
 	public void create() {
-		// configures a multiplexer where we can add input processors to that should
-		// all listen for user input events (keyboard, mouse etc).
-		multiplexer = new InputMultiplexer();
-
-		assets = new AssetManager();
 		stage = new Stage(new ScreenViewport());
 
-		// add the stage as an input processor for the user interface it will be carrying
-		multiplexer.addProcessor(stage);
-
-		// and finally tell gdx that it should make use of our multiplexer
-		Gdx.input.setInputProcessor(multiplexer);
-
-		// the event bus that we'll publish an events to, to decouple interface components from the screens
+		assets = new AssetManager();
 		eventBus = new EventBus();
 
-		// subscribe our listeners that react to events
-		subscribeEventListeners();
+		Gdx.input.setInputProcessor(stage);
 
-		// and instantiate the loading screen
+		subscribeEventListeners();
 		setScreen(new LoadingScreen(stage, assets, eventBus));
 	}
 
 	private void subscribeEventListeners() {
 		eventBus.register(new AssetsLoadedListener(this, stage, eventBus, assets));
-		eventBus.register(new LevelSelectedListener(this, assets, multiplexer, stage, eventBus));
+		eventBus.register(new LevelSelectedListener(this, assets, stage, eventBus));
 		eventBus.register(new StartButtonClickedListener(this, assets, stage, eventBus));
 		eventBus.register(new ConfirmedExitListener(stage, assets));
 	}

@@ -28,22 +28,21 @@ public final class LoadingScreen implements Screen {
 	}
 
 	private void setBackground() {
-		this.background = new Background(assets.get(Skins.DEFAULT));
+		background = new Background(assets.get(Skins.DEFAULT), assets.get(Avatars.KNUCKLES).findRegions("down"));
 		stage.addActor(background);
 	}
 
 	private void enqueueRequiredAssets() {
 		// skins
 		assets.load(Skins.DEFAULT);
+		assets.load(Avatars.KNUCKLES);
 
-		// we really, really, REALLY need the skins to be loaded before showing the user
-		// interface, so we wait for it to finish.
+		// we really, really, REALLY need the skins and the avatar to be loaded before showing
+		// the user interface, so we wait for it to finish.
 		assets.finishLoading();
 
-		// the rest of resources are to be loaded while rendering the loading interface
-
-		// avatar
-		assets.load(Avatars.KNUCKLES);
+		// the rest of resources are to be loaded while rendering the loading interface, as these
+		// are required by other screens
 
 		// sounds / Music
 		assets.load(Sounds.CHAOS);
@@ -64,7 +63,7 @@ public final class LoadingScreen implements Screen {
 
 	@Override
 	public void render(float deltaTime) {
-		background.progressText.setPercentage((int) (assets.getProgress() * 100F));
+		background.getProgressText().setPercentage((int) (assets.getProgress() * 100F));
 
 		// keep loading until all assets have been loaded
 		if (assets.update()) {

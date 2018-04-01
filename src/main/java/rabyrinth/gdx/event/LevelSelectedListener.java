@@ -1,7 +1,6 @@
 package rabyrinth.gdx.event;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.google.common.eventbus.EventBus;
@@ -14,13 +13,11 @@ public final class LevelSelectedListener {
 	private final Game game;
 	private final AssetManager assets;
 	private final Stage stage;
-	private final InputMultiplexer multiplexer;
 	private final EventBus eventBus;
 
-	public LevelSelectedListener(Game game, AssetManager assets, InputMultiplexer multiplexer, Stage stage, EventBus eventBus) {
+	public LevelSelectedListener(Game game, AssetManager assets, Stage stage, EventBus eventBus) {
 		this.game = game;
 		this.assets = assets;
-		this.multiplexer = multiplexer;
 		this.stage = stage;
 		this.eventBus = eventBus;
 	}
@@ -30,6 +27,6 @@ public final class LevelSelectedListener {
 		assets.get(Sounds.MUSIC_THE_WAE).stop();
 		assets.get(Sounds.MUST_PRAY).play();
 
-		game.setScreen(new GameScreen(stage, assets, multiplexer, eventBus));
+		game.setScreen(new GameScreen(stage, assets, eventBus));
 	}
 }

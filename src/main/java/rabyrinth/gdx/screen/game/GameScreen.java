@@ -1,6 +1,5 @@
 package rabyrinth.gdx.screen.game;
 
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -37,7 +36,7 @@ public final class GameScreen implements Screen {
 	private final rabyrinth.gdx.screen.game.ui.top.Background topBackground;
 
 	/** Creates a new {@link GameScreen}. */
-	public GameScreen(Stage stage, AssetManager assets, InputMultiplexer multiplexer, EventBus eventBus) {
+	public GameScreen(Stage stage, AssetManager assets, EventBus eventBus) {
 		Skin skin = assets.get(Skins.DEFAULT);
 
 		this.stage = stage;
@@ -45,7 +44,7 @@ public final class GameScreen implements Screen {
 		this.eventBus = eventBus;
 
 		this.table = new Table(skin);
-		this.world = new World(multiplexer, assets);
+		this.world = new World(assets);
 
 		this.sideBackground = new rabyrinth.gdx.screen.game.ui.side.Background(skin, eventBus);
 		this.topBackground = new rabyrinth.gdx.screen.game.ui.top.Background(skin, eventBus);
