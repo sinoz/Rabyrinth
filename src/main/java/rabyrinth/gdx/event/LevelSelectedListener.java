@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
+import rabyrinth.gdx.asset.Sounds;
 import rabyrinth.gdx.screen.game.GameScreen;
 
 /** @author Sino */
@@ -26,6 +27,9 @@ public final class LevelSelectedListener {
 
 	@Subscribe
 	public void levelSelected(LevelSelected levelSelected) {
+		assets.get(Sounds.MUSIC_THE_WAE).stop();
+		assets.get(Sounds.MUST_PRAY).play();
+
 		game.setScreen(new GameScreen(stage, assets, multiplexer, eventBus));
 	}
 }

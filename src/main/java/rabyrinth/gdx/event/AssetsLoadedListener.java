@@ -2,6 +2,7 @@ package rabyrinth.gdx.event;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
@@ -24,7 +25,7 @@ public final class AssetsLoadedListener {
 
 	@Subscribe
 	public void assetsLoaded(AssetsLoaded event) {
-		assetManager.get(Sounds.MUSIC_THE_WAE).play();
+		assetManager.get(Sounds.MUSIC_THE_WAE).loop();
 		game.setScreen(new MainMenuScreen(stage, assetManager, eventBus));
 	}
 }
