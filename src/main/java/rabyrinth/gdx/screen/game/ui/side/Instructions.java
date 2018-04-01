@@ -14,10 +14,11 @@ public final class Instructions extends Table {
 
 		setDebug(GdxApplication.DEBUG_MODE);
 
-		for (InstructionType type : InstructionType.values()) {
-			add(new InstructionButton(skin, type, eventBus)).padTop(20F).row();
-		}
+		defaults().prefWidth(100F);
+		add(new InstructionButton(skin, InstructionType.TURN_LEFT, eventBus));
+		add(new InstructionButton(skin, InstructionType.TURN_RIGHT, eventBus)).row();
 
-		add(new ActivateButton(skin, eventBus)).padTop(50F).row();
+		add(new InstructionButton(skin, InstructionType.WALK, eventBus));
+		add(new ActivateButton(skin, eventBus)).row();
 	}
 }

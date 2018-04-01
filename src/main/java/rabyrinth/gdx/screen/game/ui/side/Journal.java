@@ -19,7 +19,7 @@ public final class Journal extends Tree {
 
 		setDebug(GdxApplication.DEBUG_MODE);
 
-		add(new Node(new TextButton("Empty", skin)));
+		addPlaceholder();
 	}
 
 	public void add(InstructionType type) {
@@ -29,5 +29,10 @@ public final class Journal extends Tree {
 		}
 
 		add(new Node(new TextButton(type.getLabel(), skin)));
+	}
+
+	public void addPlaceholder() {
+		add(new Node(new TextButton("Empty", skin)));
+		placeholderOnly = true;
 	}
 }

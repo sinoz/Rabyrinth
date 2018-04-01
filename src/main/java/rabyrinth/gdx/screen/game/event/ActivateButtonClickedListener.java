@@ -63,5 +63,8 @@ public final class ActivateButtonClickedListener {
 
 		// and also clear journal
 		journal.clear();
+
+		// and add the placeholder back in
+		journal.addPlaceholder();
 	}
 }
