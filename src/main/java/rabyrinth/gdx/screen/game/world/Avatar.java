@@ -105,15 +105,20 @@ public final class Avatar implements Disposable {
 				}
 			}
 
-			float screenX = currentTileX * world.getTileWidth();
-			float screenY = currentTileY * world.getTileHeight();
+			if (currentTileX >= 0 && currentTileY >= 0 && currentTileX < world.getTileWidth() && currentTileY < world.getTileHeight()) {
+				float screenX = currentTileX * world.getTileWidth();
+				float screenY = currentTileY * world.getTileHeight();
 
-			sprite.setPosition(screenX, screenY);
+				sprite.setPosition(screenX, screenY);
 
-			boolean reachedTargetTileX = currentTileX == targetTileX;
-			boolean reachedTargetTileY = currentTileY == targetTileY;
+				boolean reachedTargetTileX = currentTileX == targetTileX;
+				boolean reachedTargetTileY = currentTileY == targetTileY;
 
-			if (reachedTargetTileX && reachedTargetTileY) {
+				if (reachedTargetTileX && reachedTargetTileY) {
+					movingFrom = null;
+					movingTo = null;
+				}
+			} else {
 				movingFrom = null;
 				movingTo = null;
 			}
