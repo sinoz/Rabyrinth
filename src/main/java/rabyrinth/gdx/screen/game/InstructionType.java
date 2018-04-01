@@ -3,7 +3,8 @@ package rabyrinth.gdx.screen.game;
 /** @author Sino */
 public enum InstructionType {
 	WALK ("Walk"),
-	TURN ("Turn");
+	TURN_LEFT ("Turn Left"),
+	TURN_RIGHT ("Turn Right");
 
 	private final String label;
 

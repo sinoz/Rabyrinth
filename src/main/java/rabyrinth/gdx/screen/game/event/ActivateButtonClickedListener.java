@@ -27,7 +27,19 @@ public final class ActivateButtonClickedListener {
 		while (!instructions.isEmpty()) {
 			InstructionType type = instructions.poll();
 			switch (type) {
-				case TURN:
+				case TURN_RIGHT:
+					if (world.getAvatar().currentDirection == Direction.EAST) {
+						world.getAvatar().currentDirection = Direction.NORTH;
+					} else if (world.getAvatar().currentDirection == Direction.SOUTH) {
+						world.getAvatar().currentDirection = Direction.EAST;
+					} else if (world.getAvatar().currentDirection == Direction.WEST) {
+						world.getAvatar().currentDirection = Direction.SOUTH;
+					} else if (world.getAvatar().currentDirection == Direction.NORTH) {
+						world.getAvatar().currentDirection = Direction.WEST;
+					}
+
+					break;
+				case TURN_LEFT:
 					if (world.getAvatar().currentDirection == Direction.EAST) {
 						world.getAvatar().currentDirection = Direction.SOUTH;
 					} else if (world.getAvatar().currentDirection == Direction.SOUTH) {
