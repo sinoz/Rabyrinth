@@ -9,11 +9,15 @@ import rabyrinth.gdx.screen.main.ui.Background;
 
 /** @author Sino */
 public final class MainMenuScreen implements Screen {
+	/** The stage. */
+	private final Stage stage;
+
 	/** The user interface background for this main menu. */
 	private final Background background;
 
 	/** Creates a new {@link MainMenuScreen}. */
 	public MainMenuScreen(Stage stage, AssetManager assets, EventBus eventBus) {
+		this.stage = stage;
 		this.background = new Background(assets.get(Skins.DEFAULT), eventBus);
 
 		stage.addActor(background);
@@ -30,23 +34,24 @@ public final class MainMenuScreen implements Screen {
 	}
 
 	@Override
-	public void render(float v) {
-		// TODO
+	public void render(float deltaTime) {
+		stage.act(deltaTime);
+		stage.draw();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO
+		stage.getViewport().update(width, height, true);
 	}
 
 	@Override
 	public void pause() {
-
+		// nothing
 	}
 
 	@Override
 	public void resume() {
-
+		// nothing
 	}
 
 	@Override

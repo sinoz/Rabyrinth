@@ -1,5 +1,6 @@
 package rabyrinth.gdx.screen.loading;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -61,11 +62,14 @@ public final class LoadingScreen implements Screen {
 			// trigger a screen switch (going from loading screen to the main menu)
 			events.post(new AssetsLoaded());
 		}
+
+		stage.act(deltaTime);
+		stage.draw();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO
+		stage.getViewport().update(width, height, true);
 	}
 
 	@Override

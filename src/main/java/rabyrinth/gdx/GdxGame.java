@@ -62,15 +62,12 @@ public final class GdxGame extends Game {
 
 	@Override
 	public void resize(int width, int height) {
-		stage.getViewport().update(width, height, true);
-
 		super.resize(width, height);
 	}
 
 	@Override
 	public void render() {
 		clearScreen();
-		tickStage();
 		super.render();
 	}
 
@@ -79,22 +76,13 @@ public final class GdxGame extends Game {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	}
 
-	private void tickStage() {
-		stage.act(Gdx.graphics.getDeltaTime());
-		stage.draw();
-	}
-
 	@Override
 	public void pause() {
-		Gdx.graphics.setContinuousRendering(false);
-
 		super.pause();
 	}
 
 	@Override
 	public void resume() {
-		Gdx.graphics.setContinuousRendering(true);
-
 		super.resume();
 	}
 

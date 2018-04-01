@@ -96,11 +96,15 @@ public final class GameScreen implements Screen {
 	public void render(float deltaTime) {
 		world.update(deltaTime);
 		world.render(deltaTime);
+
+		stage.act(deltaTime);
+		stage.draw();
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		world.resize(width, height);
+		stage.getViewport().update(width, height, true);
 	}
 
 	@Override

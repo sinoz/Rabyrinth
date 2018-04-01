@@ -8,11 +8,15 @@ import rabyrinth.gdx.asset.Skins;
 
 /** @author Sino */
 public final class LevelSelectScreen implements Screen {
+	/** The {@link Stage}. */
+	private final Stage stage;
+
 	/** The background for the level select menu. */
 	private final LevelSelectBackground background;
 
 	/** Creates a new {@link LevelSelectScreen}. */
 	public LevelSelectScreen(Stage stage, AssetManager assets, EventBus eventBus) {
+		this.stage = stage;
 		this.background = new LevelSelectBackground(assets.get(Skins.DEFAULT), eventBus);
 
 		stage.addActor(background);
@@ -29,23 +33,24 @@ public final class LevelSelectScreen implements Screen {
 	}
 
 	@Override
-	public void render(float v) {
-		// TODO
+	public void render(float deltaTime) {
+		stage.act(deltaTime);
+		stage.draw();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO
+		stage.getViewport().update(width, height, true);
 	}
 
 	@Override
 	public void pause() {
-
+		// nothing
 	}
 
 	@Override
 	public void resume() {
-
+		// nothing
 	}
 
 	@Override
