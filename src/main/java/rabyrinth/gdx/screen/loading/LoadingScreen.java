@@ -1,6 +1,5 @@
 package rabyrinth.gdx.screen.loading;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -9,6 +8,7 @@ import rabyrinth.gdx.asset.Avatars;
 import rabyrinth.gdx.asset.Skins;
 import rabyrinth.gdx.asset.Sounds;
 import rabyrinth.gdx.event.AssetsLoaded;
+import rabyrinth.gdx.screen.loading.ui.Background;
 
 /** @author Sino */
 public final class LoadingScreen implements Screen {
@@ -16,12 +16,20 @@ public final class LoadingScreen implements Screen {
 	private final AssetManager assets;
 	private final EventBus events;
 
+	private Background background;
+
 	public LoadingScreen(Stage stage, AssetManager assets, EventBus eventBus) {
 		this.stage = stage;
 		this.assets = assets;
 		this.events = eventBus;
 
 		enqueueRequiredAssets();
+		setBackground();
+	}
+
+	private void setBackground() {
+		this.background = new Background(assets.get(Skins.DEFAULT));
+		stage.addActor(background);
 	}
 
 	private void enqueueRequiredAssets() {
@@ -51,11 +59,13 @@ public final class LoadingScreen implements Screen {
 
 	@Override
 	public void show() {
-		// TODO
+		background.setVisible(true);
 	}
 
 	@Override
 	public void render(float deltaTime) {
+		background.progressText.setPercentage((int) (assets.getProgress() * 100F));
+
 		// keep loading until all assets have been loaded
 		if (assets.update()) {
 			// now that all assets have been loaded, lets publish an event to possibly
@@ -84,7 +94,7 @@ public final class LoadingScreen implements Screen {
 
 	@Override
 	public void hide() {
-		// TODO
+		background.setVisible(false);
 	}
 
 	@Override
