@@ -1,19 +1,14 @@
 package rabyrinth.gdx.screen.game.ui.side;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Tree;
 import rabyrinth.gdx.GdxApplication;
 import rabyrinth.gdx.screen.game.InstructionType;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /** @author Sino */
-public final class Journal extends Table {
-	private final TextButton placeholder;
-
-	private final List<TextButton> instructions = new ArrayList<>();
+public final class Journal extends Tree {
+	private boolean placeholderOnly = true;
 
 	private final Skin skin;
 
@@ -21,36 +16,18 @@ public final class Journal extends Table {
 		super(skin);
 
 		this.skin = skin;
-		this.placeholder = new TextButton("Empty", skin);
 
 		setDebug(GdxApplication.DEBUG_MODE);
 
-		addPlaceholder();
+		add(new Node(new TextButton("Empty", skin)));
 	}
 
 	public void add(InstructionType type) {
-		if (instructions.isEmpty()) {
-			placeholder.remove();
+		if (placeholderOnly) {
+			clearChildren();
+			placeholderOnly = false;
 		}
 
-		TextButton button = new TextButton(type.getLabel(), skin);
-
-		add(button).padTop(20F).row();
-
-		instructions.add(button);
-	}
-
-	public void clear() {
-		for (TextButton button : instructions) {
-			button.remove();
-		}
-
-		instructions.clear();
-
-		addPlaceholder();
-	}
-
-	private void addPlaceholder() {
-		add(placeholder).row();
+		add(new Node(new TextButton(type.getLabel(), skin)));
 	}
 }

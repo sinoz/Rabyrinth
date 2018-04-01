@@ -105,7 +105,7 @@ public final class Avatar implements Disposable {
 				}
 			}
 
-			if (currentTileX >= 0 && currentTileY >= 0 && currentTileX < world.getTileWidth() && currentTileY < world.getTileHeight()) {
+			if (currentTileX >= 0 && currentTileY >= 0 && currentTileX < world.getMapWidth() && currentTileY < world.getMapHeight()) {
 				float screenX = currentTileX * world.getTileWidth();
 				float screenY = currentTileY * world.getTileHeight();
 

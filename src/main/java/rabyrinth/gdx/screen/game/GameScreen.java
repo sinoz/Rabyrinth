@@ -70,7 +70,7 @@ public final class GameScreen implements Screen {
 				.fillX();
 
 		table.add(sideBackground)
-				.prefWidth(100F)
+				.prefWidth(250F)
 				.top()
 				.right()
 				.expandY()

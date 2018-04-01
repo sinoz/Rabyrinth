@@ -1,5 +1,6 @@
 package rabyrinth.gdx.screen.game.ui.side;
 
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -19,7 +20,12 @@ public final class Background extends Table {
 		Instructions instructions = new Instructions(skin, eventBus);
 		journal = new Journal(skin);
 
-		SplitPane pane = new SplitPane(instructions, journal, false, skin);
+		ScrollPane scrollPane = new ScrollPane(journal, skin);
+
+		scrollPane.setFadeScrollBars(false);
+		scrollPane.setScrollbarsOnTop(true);
+
+		SplitPane pane = new SplitPane(instructions, scrollPane, true, skin);
 		add(pane).expandY().fillY();
 	}
 
