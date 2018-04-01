@@ -75,6 +75,8 @@ public final class World implements Disposable {
 
 	/** Updates the world and its subordinates. */
 	public void update(float deltaTime) {
+		avatar.update(deltaTime);
+
 		stateTime += deltaTime;
 
 		if (avatar.currentDirection == Direction.SOUTH) {

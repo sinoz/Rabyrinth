@@ -9,6 +9,9 @@ import rabyrinth.gdx.screen.game.world.frame.FrameSet;
 
 /** @author Sino */
 public final class Avatar implements Disposable {
+	/** The default walking velocity at which an avatar moves. */
+	public static final float WALK_VELOCITY = 3F;
+
 	/** The game world this avatar is currently on. */
 	private final World world;
 
@@ -28,6 +31,9 @@ public final class Avatar implements Disposable {
 	private Vector2 movingFrom;
 	private Vector2 movingTo;
 
+	/** The velocity at which the avatar moves. */
+	public float velocity = WALK_VELOCITY;
+
 	/** Creates a new {@link Avatar}. */
 	public Avatar(World world, FrameSet frameSet) {
 		this.world = world;
@@ -36,7 +42,7 @@ public final class Avatar implements Disposable {
 	}
 
 	/** Updates this avatar. */
-	public void update() {
+	public void update(float deltaTime) {
 		if (movingTo == null && pending.size > 0) {
 			Direction nextDirection = pending.removeFirst();
 
@@ -71,8 +77,46 @@ public final class Avatar implements Disposable {
 		}
 
 		if (movingTo != null) {
-			movingFrom = null;
-			movingTo = null;
+			float currentTileX = sprite.getX() / world.getTileWidth();
+			float currentTileY = sprite.getY() / world.getTileHeight();
+
+			float targetTileX = movingTo.x;
+			float targetTileY = movingTo.y;
+
+			if (currentDirection == Direction.SOUTH) {
+				currentTileY -= velocity * deltaTime;
+				if (currentTileY < targetTileY) {
+					currentTileY = targetTileY;
+				}
+			} else if (currentDirection == Direction.NORTH) {
+				currentTileY += velocity * deltaTime;
+				if (currentTileY > targetTileY) {
+					currentTileY = targetTileY;
+				}
+			} else if (currentDirection == Direction.EAST) {
+				currentTileX += velocity * deltaTime;
+				if (currentTileX > targetTileX) {
+					currentTileX = targetTileX;
+				}
+			} else if (currentDirection == Direction.WEST) {
+				currentTileX -= velocity * deltaTime;
+				if (currentTileX < targetTileX) {
+					currentTileX = targetTileX;
+				}
+			}
+
+			float screenX = currentTileX * world.getTileWidth();
+			float screenY = currentTileY * world.getTileHeight();
+
+			sprite.setPosition(screenX, screenY);
+
+			boolean reachedTargetTileX = currentTileX == targetTileX;
+			boolean reachedTargetTileY = currentTileY == targetTileY;
+
+			if (reachedTargetTileX && reachedTargetTileY) {
+				movingFrom = null;
+				movingTo = null;
+			}
 		}
 	}
 
