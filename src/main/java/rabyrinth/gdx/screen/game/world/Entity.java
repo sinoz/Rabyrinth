@@ -8,40 +8,40 @@ import com.badlogic.gdx.utils.Queue;
 import rabyrinth.gdx.screen.game.world.frame.FrameSet;
 
 /** @author Sino */
-public final class Avatar implements Disposable {
-	/** The default walking velocity at which an avatar moves. */
+public final class Entity implements Disposable {
+	/** The default walking velocity at which an entity moves. */
 	public static final float WALK_VELOCITY = 3F;
 
-	/** The game world this avatar is currently on. */
+	/** The game world this entity is currently on. */
 	private final World world;
 
-	/** The sprite for this avatar. */
+	/** The sprite for this entity. */
 	private final Sprite sprite;
 
-	/** The set of frames for this avatar. */
+	/** The set of frames for this entity. */
 	private final FrameSet frameSet;
 
 	/** A queue of {@link Direction}s */
 	public final Queue<Direction> pending = new Queue<Direction>();
 
-	/** The current {@link Direction} this avatar is facing. */
+	/** The current {@link Direction} this entity is facing. */
 	public Direction currentDirection = Direction.SOUTH;
 
-	/** The tile points where this avatar is moving from and moving to. */
+	/** The tile points where this entity is moving from and moving to. */
 	private Vector2 movingFrom;
 	private Vector2 movingTo;
 
-	/** The velocity at which the avatar moves. */
+	/** The velocity at which the entity moves. */
 	public float velocity = WALK_VELOCITY;
 
-	/** Creates a new {@link Avatar}. */
-	public Avatar(World world, FrameSet frameSet) {
+	/** Creates a new {@link Entity}. */
+	public Entity(World world, FrameSet frameSet) {
 		this.world = world;
 		this.frameSet = frameSet;
 		this.sprite = new Sprite(frameSet.get(Direction.SOUTH).get(0));
 	}
 
-	/** Updates this avatar. */
+	/** Updates this entity. */
 	public void update(float deltaTime) {
 		if (movingTo == null && pending.size > 0) {
 			Direction nextDirection = pending.removeFirst();
@@ -125,7 +125,7 @@ public final class Avatar implements Disposable {
 		}
 	}
 
-	/** Draws this avatar. */
+	/** Draws this entity. */
 	public void draw(Batch batch) {
 		sprite.draw(batch);
 	}

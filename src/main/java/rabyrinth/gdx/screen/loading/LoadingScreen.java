@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.google.common.eventbus.EventBus;
 import rabyrinth.gdx.asset.Avatars;
+import rabyrinth.gdx.asset.Queens;
 import rabyrinth.gdx.asset.Skins;
 import rabyrinth.gdx.asset.Sounds;
 import rabyrinth.gdx.screen.event.AssetsLoaded;
@@ -43,6 +44,9 @@ public final class LoadingScreen implements Screen {
 
 		// the rest of resources are to be loaded while rendering the loading interface, as these
 		// are required by other screens
+
+		// queen
+		assets.load(Queens.KNUCKLES_QUEEN);
 
 		// sounds / Music
 		assets.load(Sounds.CHAOS);

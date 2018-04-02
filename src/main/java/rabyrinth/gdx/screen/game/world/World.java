@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.google.common.collect.ImmutableMap;
 import rabyrinth.gdx.asset.Avatars;
+import rabyrinth.gdx.asset.Queens;
 import rabyrinth.gdx.screen.game.world.frame.FrameSet;
 
 /** @author Sino */
@@ -28,7 +29,9 @@ public final class World implements Disposable {
 
 	private final OrthographicCamera camera;
 	private final BatchTiledMapRenderer renderer;
-	private final Avatar avatar;
+
+	private final Entity avatar;
+	private final Entity queen;
 
 	private final Animation<TextureRegion> downAnimation;
 	private final Animation<TextureRegion> upAnimation;
@@ -58,34 +61,47 @@ public final class World implements Disposable {
 			viewport = new ScreenViewport(camera);
 		}
 
+		/* Map */
 		tiledMap = new TmxMapLoader().load("resources/maps/tmx/levels/1.tmx");
 		renderer = new OrthogonalTiledMapRenderer(tiledMap);
 
+		/* Avatar */
 		TextureAtlas avatarAtlas = assets.get(Avatars.KNUCKLES);
 
-		Array<TextureAtlas.AtlasRegion> downFrames = avatarAtlas.findRegions("down");
-		Array<TextureAtlas.AtlasRegion> upFrames = avatarAtlas.findRegions("up");
-		Array<TextureAtlas.AtlasRegion> leftFrames = avatarAtlas.findRegions("left");
-		Array<TextureAtlas.AtlasRegion> rightFrames = avatarAtlas.findRegions("right");
+		Array<TextureAtlas.AtlasRegion> avatarDownFrames = avatarAtlas.findRegions("down");
+		Array<TextureAtlas.AtlasRegion> avatarUpFrames = avatarAtlas.findRegions("up");
+		Array<TextureAtlas.AtlasRegion> avatarLeftFrames = avatarAtlas.findRegions("left");
+		Array<TextureAtlas.AtlasRegion> avatarRightFrames = avatarAtlas.findRegions("right");
 
-		FrameSet frames = new FrameSet(ImmutableMap.<Direction, Array<TextureAtlas.AtlasRegion>>builder()
-				.put(Direction.SOUTH, downFrames)
-				.put(Direction.NORTH, upFrames)
-				.put(Direction.EAST, rightFrames)
-				.put(Direction.WEST, leftFrames)
+		FrameSet avatarFrames = new FrameSet(ImmutableMap.<Direction, Array<TextureAtlas.AtlasRegion>>builder()
+				.put(Direction.SOUTH, avatarDownFrames)
+				.put(Direction.NORTH, avatarUpFrames)
+				.put(Direction.EAST, avatarRightFrames)
+				.put(Direction.WEST, avatarLeftFrames)
 				.build());
 
-		downAnimation = new Animation<TextureRegion>(0.25F, downFrames, Animation.PlayMode.LOOP);
-		upAnimation = new Animation<TextureRegion>(0.25F, upFrames, Animation.PlayMode.LOOP);
-		rightAnimation = new Animation<TextureRegion>(0.25F, rightFrames, Animation.PlayMode.LOOP);
-		leftAnimation = new Animation<TextureRegion>(0.25F, leftFrames, Animation.PlayMode.LOOP);
+		downAnimation = new Animation<TextureRegion>(0.25F, avatarDownFrames, Animation.PlayMode.LOOP);
+		upAnimation = new Animation<TextureRegion>(0.25F, avatarUpFrames, Animation.PlayMode.LOOP);
+		rightAnimation = new Animation<TextureRegion>(0.25F, avatarRightFrames, Animation.PlayMode.LOOP);
+		leftAnimation = new Animation<TextureRegion>(0.25F, avatarLeftFrames, Animation.PlayMode.LOOP);
 
-		avatar = new Avatar(this, frames);
+		avatar = new Entity(this, avatarFrames);
+
+		/* Queen */
+		TextureAtlas queenAtlas = assets.get(Queens.KNUCKLES_QUEEN);
+
+		Array<TextureAtlas.AtlasRegion> queenDownFrames = queenAtlas.findRegions("down");
+		FrameSet queenFrames = new FrameSet(ImmutableMap.<Direction, Array<TextureAtlas.AtlasRegion>>builder()
+				.put(Direction.SOUTH, queenDownFrames)
+				.build());
+
+		queen = new Entity(this, queenFrames);
 	}
 
 	/** Updates the world and its subordinates. */
 	public void update(float deltaTime) {
 		avatar.update(deltaTime);
+		queen.update(deltaTime);
 
 		stateTime += deltaTime;
 
@@ -109,9 +125,10 @@ public final class World implements Disposable {
 			renderer.setView(camera);
 			renderer.render();
 
-			// draws the avatar's knuckles sprite onto the sprite batch of the map renderer
+			// draws the entities onto the sprite batch of the map renderer
 			renderer.getBatch().begin();
 			avatar.draw(renderer.getBatch());
+			queen.draw(renderer.getBatch());
 			renderer.getBatch().end();
 		}
 	}
@@ -166,7 +183,7 @@ public final class World implements Disposable {
 		return renderer;
 	}
 
-	public Avatar getAvatar() {
+	public Entity getAvatar() {
 		return avatar;
 	}
 }
