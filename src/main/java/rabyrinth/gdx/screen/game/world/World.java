@@ -1,5 +1,6 @@
 package rabyrinth.gdx.screen.game.world;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.renderers.BatchTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.google.common.collect.ImmutableMap;
@@ -42,11 +44,19 @@ public final class World implements Disposable {
 	public World(AssetManager assets) {
 		float appWidth = Gdx.graphics.getWidth();
 		float appHeight = Gdx.graphics.getHeight();
+		if (Gdx.app.getType() == Application.ApplicationType.Android) {
+			appWidth = 640;
+			appHeight = 480;
+		}
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, appWidth, appHeight);
 
-		viewport = new ScreenViewport(camera);
+		if (Gdx.app.getType() == Application.ApplicationType.Android) {
+			viewport = new FitViewport(appWidth, appHeight, camera);
+		} else {
+			viewport = new ScreenViewport(camera);
+		}
 
 		tiledMap = new TmxMapLoader().load("resources/maps/tmx/levels/1.tmx");
 		renderer = new OrthogonalTiledMapRenderer(tiledMap);
