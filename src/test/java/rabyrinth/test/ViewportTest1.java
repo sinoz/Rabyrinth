@@ -1,6 +1,7 @@
-package rabyrinth.gdx.test;
+package rabyrinth.test;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -13,6 +14,10 @@ import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.*;
 
 public final class ViewportTest1 extends ApplicationAdapter {
+	public static void main(String[] args) {
+		new LwjglApplication(new ViewportTest1());
+	}
+
 	Array<Viewport> viewports;
 	Array<String> names;
 	Stage stage;
