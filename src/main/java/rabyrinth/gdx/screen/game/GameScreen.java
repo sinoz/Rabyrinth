@@ -123,6 +123,10 @@ public final class GameScreen implements Screen {
 		world.dispose();
 	}
 
+	public World getWorld() {
+		return world;
+	}
+
 	public SideBackground getSideBackground() {
 		return sideBackground;
 	}

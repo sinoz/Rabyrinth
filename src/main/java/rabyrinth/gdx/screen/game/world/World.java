@@ -186,4 +186,8 @@ public final class World implements Disposable {
 	public Entity getAvatar() {
 		return avatar;
 	}
+
+	public Entity getQueen() {
+		return queen;
+	}
 }

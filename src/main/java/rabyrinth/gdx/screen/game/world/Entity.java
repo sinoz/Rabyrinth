@@ -41,6 +41,14 @@ public final class Entity implements Disposable {
 		this.sprite = new Sprite(frameSet.get(Direction.SOUTH).get(0));
 	}
 
+	/** Sets this entity's screen position to the specified tile position. */
+	public void setPosition(float tileX, float tileY) {
+		float screenX = tileX * world.getTileWidth();
+		float screenY = tileY * world.getTileHeight();
+
+		sprite.setPosition(screenX, screenY);
+	}
+
 	/** Updates this entity. */
 	public void update(float deltaTime) {
 		if (movingTo == null && pending.size > 0) {
@@ -106,10 +114,7 @@ public final class Entity implements Disposable {
 			}
 
 			if (currentTileX >= 0 && currentTileY >= 0 && currentTileX < world.getMapWidth() && currentTileY < world.getMapHeight()) {
-				float screenX = currentTileX * world.getTileWidth();
-				float screenY = currentTileY * world.getTileHeight();
-
-				sprite.setPosition(screenX, screenY);
+				setPosition(currentTileX, currentTileY);
 
 				boolean reachedTargetTileX = currentTileX == targetTileX;
 				boolean reachedTargetTileY = currentTileY == targetTileY;
