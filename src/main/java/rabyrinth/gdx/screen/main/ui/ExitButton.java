@@ -8,7 +8,7 @@ import com.google.common.eventbus.EventBus;
 
 /** @author Sino */
 public final class ExitButton extends TextButton {
-	ExitButton(Skin skin, Background background, EventBus eventBus) {
+	ExitButton(final Skin skin, final Background background, final EventBus eventBus) {
 		super("Exit", skin);
 
 		addListener(new ChangeListener() {

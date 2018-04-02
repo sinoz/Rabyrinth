@@ -21,6 +21,11 @@ public final class ConfirmedExitListener {
 	@Subscribe
 	public void confirmedExit(ConfirmedExit event) {
 		assetManager.get(Sounds.YOU_DO_NOT_KNOW_THE_WAE).play();
-		stage.addAction(sequence(delay(1.5F), run(() -> Gdx.app.exit())));
+		stage.addAction(sequence(delay(1.5F), run(new Runnable() {
+			@Override
+			public void run() {
+				Gdx.app.exit();
+			}
+		})));
 	}
 }

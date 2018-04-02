@@ -3,7 +3,7 @@ package rabyrinth.gdx.screen.game.ui.side;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Tree;
-import rabyrinth.gdx.GdxApplication;
+import rabyrinth.gdx.GdxGame;
 import rabyrinth.gdx.screen.game.InstructionType;
 
 /** @author Sino */
@@ -17,7 +17,7 @@ public final class Journal extends Tree {
 
 		this.skin = skin;
 
-		setDebug(GdxApplication.DEBUG_MODE);
+		setDebug(GdxGame.DEBUG_MODE);
 
 		addPlaceholder();
 	}

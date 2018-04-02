@@ -2,7 +2,6 @@ package rabyrinth.gdx;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -16,6 +15,9 @@ import rabyrinth.gdx.screen.loading.LoadingScreen;
 
 /** @author Sino */
 public final class GdxGame extends Game {
+	/** Whether this game is to be ran in debug mode. */
+	public static final boolean DEBUG_MODE = true;
+
 	/** An event bus to publish user interface events onto. */
 	private EventBus eventBus;
 

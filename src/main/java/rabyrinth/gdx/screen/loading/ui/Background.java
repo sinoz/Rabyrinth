@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
-import rabyrinth.gdx.GdxApplication;
+import rabyrinth.gdx.GdxGame;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
@@ -23,7 +23,7 @@ public final class Background extends Table {
 	public Background(Skin skin, Array<TextureAtlas.AtlasRegion> frames) {
 		super(skin);
 
-		setDebug(GdxApplication.DEBUG_MODE);
+		setDebug(GdxGame.DEBUG_MODE);
 		setBackground("default-background");
 		setFillParent(true);
 
@@ -40,7 +40,12 @@ public final class Background extends Table {
 
 	private void animateKnucklesIcon() {
 		Action wait = delay(0.25F);
-		Action transitionIntoNextFrame = run(this::nextFrame);
+		Action transitionIntoNextFrame = run(new Runnable() {
+			@Override
+			public void run() {
+				nextFrame();
+			}
+		});
 
 		knucklesIcon.addAction(forever(sequence(wait, transitionIntoNextFrame)));
 	}

@@ -65,10 +65,10 @@ public final class World implements Disposable {
 				.put(Direction.WEST, leftFrames)
 				.build());
 
-		downAnimation = new Animation<>(0.25F, downFrames, Animation.PlayMode.LOOP);
-		upAnimation = new Animation<>(0.25F, upFrames, Animation.PlayMode.LOOP);
-		rightAnimation = new Animation<>(0.25F, rightFrames, Animation.PlayMode.LOOP);
-		leftAnimation = new Animation<>(0.25F, leftFrames, Animation.PlayMode.LOOP);
+		downAnimation = new Animation<TextureRegion>(0.25F, downFrames, Animation.PlayMode.LOOP);
+		upAnimation = new Animation<TextureRegion>(0.25F, upFrames, Animation.PlayMode.LOOP);
+		rightAnimation = new Animation<TextureRegion>(0.25F, rightFrames, Animation.PlayMode.LOOP);
+		leftAnimation = new Animation<TextureRegion>(0.25F, leftFrames, Animation.PlayMode.LOOP);
 
 		avatar = new Avatar(this, frames);
 	}

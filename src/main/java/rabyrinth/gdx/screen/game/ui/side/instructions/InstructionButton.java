@@ -10,7 +10,7 @@ import rabyrinth.gdx.screen.game.event.SelectedInstruction;
 
 /** @author Sino */
 public final class InstructionButton extends TextButton {
-	public InstructionButton(Skin skin, InstructionType type, EventBus eventBus) {
+	public InstructionButton(Skin skin, final InstructionType type, final EventBus eventBus) {
 		super(type.getLabel(), skin);
 
 		addListener(new ChangeListener() {

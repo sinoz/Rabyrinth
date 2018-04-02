@@ -22,7 +22,7 @@ public final class Avatar implements Disposable {
 	private final FrameSet frameSet;
 
 	/** A queue of {@link Direction}s */
-	public final Queue<Direction> pending = new Queue<>();
+	public final Queue<Direction> pending = new Queue<Direction>();
 
 	/** The current {@link Direction} this avatar is facing. */
 	public Direction currentDirection = Direction.SOUTH;

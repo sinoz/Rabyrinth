@@ -9,7 +9,7 @@ import rabyrinth.gdx.screen.game.event.ActivateButtonClicked;
 
 /** @author Sino */
 public final class ActivateButton extends TextButton {
-	public ActivateButton(Skin skin, EventBus eventBus) {
+	public ActivateButton(Skin skin, final EventBus eventBus) {
 		super("Activate", skin);
 
 		addListener(new ChangeListener() {

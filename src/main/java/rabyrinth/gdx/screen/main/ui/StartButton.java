@@ -13,7 +13,7 @@ public final class StartButton extends TextButton {
 	private static final String TEXT_CONTENT = "Start Game";
 
 	/** Creates a new {@link StartButton}. */
-	StartButton(Skin skin, EventBus eventBus) {
+	StartButton(Skin skin, final EventBus eventBus) {
 		super(TEXT_CONTENT, skin);
 
 		addListener(new ChangeListener() {

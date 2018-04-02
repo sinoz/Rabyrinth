@@ -9,7 +9,7 @@ import rabyrinth.gdx.event.ConfirmedExit;
 
 /** @author Sino */
 public final class ExitButton extends TextButton {
-	public ExitButton(Skin skin, EventBus eventBus) {
+	public ExitButton(Skin skin, final EventBus eventBus) {
 		super("Exit", skin);
 
 		addListener(new ChangeListener() {

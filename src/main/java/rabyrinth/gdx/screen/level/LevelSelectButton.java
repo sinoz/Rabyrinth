@@ -9,7 +9,7 @@ import rabyrinth.gdx.event.LevelSelected;
 
 /** @author Sino */
 public final class LevelSelectButton extends TextButton {
-	public LevelSelectButton(Skin skin, int levelId, EventBus eventBus) {
+	public LevelSelectButton(Skin skin, final int levelId, final EventBus eventBus) {
 		super("Level " + levelId, skin);
 
 		addListener(new ChangeListener() {

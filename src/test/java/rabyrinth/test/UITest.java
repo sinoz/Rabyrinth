@@ -145,8 +145,13 @@ public final class UITest extends ApplicationAdapter {
 		// stage.addActor(new Button("Behind Window", skin));
 		stage.addActor(window);
 
-		textfield.setTextFieldListener((textField, key) -> {
-			if (key == '\n') textField.getOnscreenKeyboard().show(false);
+		textfield.setTextFieldListener(new TextField.TextFieldListener() {
+			@Override
+			public void keyTyped(TextField textField, char c) {
+				if (c == '\n') {
+					textField.getOnscreenKeyboard().show(false);
+				}
+			}
 		});
 
 		slider.addListener(new ChangeListener() {

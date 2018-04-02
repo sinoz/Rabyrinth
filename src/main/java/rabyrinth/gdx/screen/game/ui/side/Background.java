@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.google.common.eventbus.EventBus;
-import rabyrinth.gdx.GdxApplication;
+import rabyrinth.gdx.GdxGame;
 
 /** @author Sino */
 public final class Background extends Table {
@@ -15,7 +15,7 @@ public final class Background extends Table {
 		super(skin);
 
 		setBackground("default-background");
-		setDebug(GdxApplication.DEBUG_MODE);
+		setDebug(GdxGame.DEBUG_MODE);
 
 		Instructions instructions = new Instructions(skin, eventBus);
 		journal = new Journal(skin);

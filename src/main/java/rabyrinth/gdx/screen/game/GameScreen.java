@@ -17,7 +17,7 @@ import java.util.Deque;
 /** @author Sino */
 public final class GameScreen implements Screen {
 	/** The queue of {@link InstructionType}s to perform. */
-	private final Deque<InstructionType> instructionQueue = new ArrayDeque<>(16);
+	private final Deque<InstructionType> instructionQueue = new ArrayDeque<InstructionType>(16);
 
 	/** The event bus to publish user interface events onto. */
 	private final EventBus eventBus;
