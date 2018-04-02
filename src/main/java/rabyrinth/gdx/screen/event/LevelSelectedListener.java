@@ -3,10 +3,13 @@ package rabyrinth.gdx.screen.event;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import rabyrinth.gdx.asset.Sounds;
 import rabyrinth.gdx.screen.game.GameScreen;
+
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 /** @author Sino */
 public final class LevelSelectedListener {
@@ -35,6 +38,13 @@ public final class LevelSelectedListener {
 
 		assets.get(Sounds.MUSIC_THE_WAE).stop();
 		assets.get(Sounds.MUST_PRAY).play();
+
+		stage.addAction(sequence(delay(3.3F), run(new Runnable() {
+			@Override
+			public void run() {
+				assets.get(Sounds.MUSIC_THE_WAE).loop();
+			}
+		})));
 
 		game.setScreen(screen);
 	}

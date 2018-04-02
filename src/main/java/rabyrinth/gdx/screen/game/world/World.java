@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.eventbus.EventBus;
 import rabyrinth.gdx.asset.Avatars;
 import rabyrinth.gdx.asset.Queens;
 import rabyrinth.gdx.screen.game.world.frame.FrameSet;
@@ -29,6 +30,8 @@ public final class World implements Disposable {
 
 	private final OrthographicCamera camera;
 	private final BatchTiledMapRenderer renderer;
+
+	private final EventBus eventBus;
 
 	private final Entity avatar;
 	private final Entity queen;
@@ -44,14 +47,13 @@ public final class World implements Disposable {
 	private boolean mayRender;
 
 	/** Creates a new {@link World}. */
-	public World(AssetManager assets) {
-		camera = new OrthographicCamera();
+	public World(AssetManager assets, EventBus eventBus) {
+		this.eventBus = eventBus;
 
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, 800, 600);
 		if (Gdx.app.getType() == Application.ApplicationType.Android) {
-			camera.setToOrtho(false, 800, 600);
 			camera.zoom -= 0.5F;
-		} else {
-			camera.setToOrtho(false, 1366, 705);
 		}
 
 		viewport = new ScreenViewport(camera);
@@ -192,5 +194,9 @@ public final class World implements Disposable {
 
 	public Entity getQueen() {
 		return queen;
+	}
+
+	public EventBus getEventBus() {
+		return eventBus;
 	}
 }

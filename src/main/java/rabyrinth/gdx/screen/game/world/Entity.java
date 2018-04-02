@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Queue;
+import rabyrinth.gdx.screen.event.QueenReached;
 import rabyrinth.gdx.screen.game.world.frame.FrameSet;
 
 /** @author Sino */
@@ -30,6 +31,9 @@ public final class Entity implements Disposable {
 	/** The tile points where this entity is moving from and moving to. */
 	private Vector2 movingFrom;
 	private Vector2 movingTo;
+
+	/** Indicates whether this entity should be hidden from display. */
+	public boolean hidden;
 
 	/** The velocity at which the entity moves. */
 	public float velocity = WALK_VELOCITY;
@@ -126,6 +130,14 @@ public final class Entity implements Disposable {
 				boolean reachedTargetTileY = currentTileY == targetTileY;
 
 				if (reachedTargetTileX && reachedTargetTileY) {
+					float queenX = world.getQueen().getTileX();
+					float queenY = world.getQueen().getTileY();
+
+					// TODO this logic is currently applied for all entities, should be avatar only
+					if (currentTileX == queenX && currentTileY == queenY) {
+						world.getEventBus().post(new QueenReached(this, world.getQueen()));
+					}
+
 					movingFrom = null;
 					movingTo = null;
 				}
@@ -138,7 +150,9 @@ public final class Entity implements Disposable {
 
 	/** Draws this entity. */
 	public void draw(Batch batch) {
-		sprite.draw(batch);
+		if (!hidden) {
+			sprite.draw(batch);
+		}
 	}
 
 	@Override

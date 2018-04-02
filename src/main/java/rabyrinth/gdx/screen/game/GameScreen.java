@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.google.common.eventbus.EventBus;
 import rabyrinth.gdx.asset.Skins;
 import rabyrinth.gdx.screen.event.ActivateButtonClickedListener;
+import rabyrinth.gdx.screen.event.QueenReachedListener;
 import rabyrinth.gdx.screen.event.SelectedInstructionListener;
 import rabyrinth.gdx.screen.game.ui.side.SideBackground;
 import rabyrinth.gdx.screen.game.ui.top.TopBackground;
@@ -23,6 +24,9 @@ public final class GameScreen implements Screen {
 
 	/** The event bus to publish user interface events onto. */
 	private final EventBus eventBus;
+
+	/** Manages assets. */
+	private final AssetManager assets;
 
 	/** The user interface table for this game scene to add components to. */
 	private final Table table;
@@ -42,11 +46,12 @@ public final class GameScreen implements Screen {
 		Skin skin = assets.get(Skins.DEFAULT);
 
 		this.stage = stage;
+		this.assets = assets;
 
 		this.eventBus = eventBus;
 
 		this.table = new Table(skin);
-		this.world = new World(assets);
+		this.world = new World(assets, eventBus);
 
 		this.sideBackground = new SideBackground(skin, eventBus);
 		this.topBackground = new TopBackground(skin, eventBus);
@@ -58,6 +63,7 @@ public final class GameScreen implements Screen {
 	private void subscribeListeners() {
 		eventBus.register(new ActivateButtonClickedListener(sideBackground.getJournal(), world, instructionQueue));
 		eventBus.register(new SelectedInstructionListener(sideBackground.getJournal(), instructionQueue));
+		eventBus.register(new QueenReachedListener(this, assets));
 	}
 
 	/** Configures the {@link GameScreen#table}. */
