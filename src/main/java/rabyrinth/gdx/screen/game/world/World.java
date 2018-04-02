@@ -1,11 +1,12 @@
 package rabyrinth.gdx.screen.game.world;
 
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -46,8 +47,12 @@ public final class World implements Disposable {
 	public World(AssetManager assets) {
 		camera = new OrthographicCamera();
 
-		camera.setToOrtho(false, 1366, 705);
-		//camera.translate(-(camera.viewportWidth / 2F), -(camera.viewportHeight / 2F));
+		if (Gdx.app.getType() == Application.ApplicationType.Android) {
+			camera.setToOrtho(false, 800, 600);
+			camera.zoom -= 0.5F;
+		} else {
+			camera.setToOrtho(false, 1366, 705);
+		}
 
 		viewport = new ScreenViewport(camera);
 
@@ -150,7 +155,7 @@ public final class World implements Disposable {
 
 		TiledMapTileLayer.Cell cell = layer.getCell(tileX, tileY);
 
-		return (boolean) cell.getTile().getProperties().get("blocked");
+		return (Boolean) cell.getTile().getProperties().get("blocked");
 	}
 
 	public int getTileWidth() {

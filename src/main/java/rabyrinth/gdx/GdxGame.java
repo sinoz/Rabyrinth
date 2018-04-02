@@ -1,11 +1,12 @@
 package rabyrinth.gdx;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.google.common.eventbus.EventBus;
 import rabyrinth.gdx.screen.event.AssetsLoadedListener;
@@ -30,7 +31,11 @@ public final class GdxGame extends Game {
 
 	@Override
 	public void create() {
-		stage = new Stage(new ScreenViewport());
+		if (Gdx.app.getType() == Application.ApplicationType.Android) {
+			stage = new Stage(new ExtendViewport(800, 600));
+		} else {
+			stage = new Stage(new ScreenViewport());
+		}
 
 		assets = new AssetManager();
 		eventBus = new EventBus();
