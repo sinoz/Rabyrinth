@@ -1,19 +1,18 @@
 package rabyrinth.gdx.screen.game.world;
 
-import com.badlogic.gdx.Application;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.BatchTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.google.common.collect.ImmutableMap;
@@ -45,21 +44,12 @@ public final class World implements Disposable {
 
 	/** Creates a new {@link World}. */
 	public World(AssetManager assets) {
-		float appWidth = Gdx.graphics.getWidth();
-		float appHeight = Gdx.graphics.getHeight();
-		if (Gdx.app.getType() == Application.ApplicationType.Android) {
-			appWidth = 640;
-			appHeight = 480;
-		}
-
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, appWidth, appHeight);
 
-		if (Gdx.app.getType() == Application.ApplicationType.Android) {
-			viewport = new FitViewport(appWidth, appHeight, camera);
-		} else {
-			viewport = new ScreenViewport(camera);
-		}
+		camera.setToOrtho(false, 1366, 705);
+		//camera.translate(-(camera.viewportWidth / 2F), -(camera.viewportHeight / 2F));
+
+		viewport = new ScreenViewport(camera);
 
 		/* Map */
 		tiledMap = new TmxMapLoader().load("resources/maps/tmx/levels/1.tmx");
@@ -145,7 +135,7 @@ public final class World implements Disposable {
 
 	/** Reacts to a resize event, properly scaling the world. */
 	public void resize(int width, int height) {
-		viewport.update(width, height, false);
+		viewport.update(width, height);
 	}
 
 	@Override
@@ -153,6 +143,14 @@ public final class World implements Disposable {
 		tiledMap.dispose();
 		renderer.dispose();
 		avatar.dispose();
+	}
+
+	public boolean tileIsBlocked(int tileX, int tileY) {
+		TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get(0);
+
+		TiledMapTileLayer.Cell cell = layer.getCell(tileX, tileY);
+
+		return (boolean) cell.getTile().getProperties().get("blocked");
 	}
 
 	public int getTileWidth() {

@@ -10,8 +10,9 @@ public final class DesktopLauncher { // TODO create core and desktop modules
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 
 		config.title = "Rabyrinth";
-		config.width = 800;
-		config.height = 600;
+		config.width = LwjglApplicationConfiguration.getDesktopDisplayMode().width;
+		config.height = LwjglApplicationConfiguration.getDesktopDisplayMode().height;
+		config.resizable = true;
 
 		config.addIcon("resources/icon/icon_32x32.png", Files.FileType.Internal);
 		config.addIcon("resources/icon/icon_64x64.png", Files.FileType.Internal); // TODO should be 16x16

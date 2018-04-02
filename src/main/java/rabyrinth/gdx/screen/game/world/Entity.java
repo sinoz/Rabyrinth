@@ -57,31 +57,37 @@ public final class Entity implements Disposable {
 			float currentTileX = sprite.getX() / world.getTileWidth();
 			float currentTileY = sprite.getY() / world.getTileHeight();
 
+			Vector2 destination;
+
 			switch (nextDirection) {
 				case SOUTH:
-					movingTo = new Vector2(currentTileX, currentTileY - 1);
+					destination = new Vector2(currentTileX, currentTileY - 1);
 
 					break;
 				case NORTH:
-					movingTo = new Vector2(currentTileX, currentTileY + 1);
+					destination = new Vector2(currentTileX, currentTileY + 1);
 
 					break;
 				case EAST:
-					movingTo = new Vector2(currentTileX + 1, currentTileY);
+					destination = new Vector2(currentTileX + 1, currentTileY);
 
 					break;
 				case WEST:
-					movingTo = new Vector2(currentTileX - 1, currentTileY);
+					destination = new Vector2(currentTileX - 1, currentTileY);
 
 					break;
 				default:
 					throw new IllegalArgumentException("Unsupported direction: " + nextDirection);
 			}
 
-			currentDirection = nextDirection;
-			sprite.setRegion(frameSet.get(currentDirection).get(0));
+			boolean outOfBounds = destination.x < 0 || destination.y < 0 || destination.x >= world.getMapWidth() || destination.y >= world.getMapHeight();
+			if (!outOfBounds && !world.tileIsBlocked((int) destination.x, (int) destination.y)) {
+				currentDirection = nextDirection;
+				sprite.setRegion(frameSet.get(currentDirection).get(0));
 
-			movingFrom = new Vector2(currentTileX, currentTileY);
+				movingTo = destination;
+				movingFrom = new Vector2(currentTileX, currentTileY);
+			}
 		}
 
 		if (movingTo != null) {

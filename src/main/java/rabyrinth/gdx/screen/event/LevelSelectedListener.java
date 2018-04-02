@@ -27,7 +27,9 @@ public final class LevelSelectedListener {
 		GameScreen screen = new GameScreen(stage, assets, eventBus);
 
 		if (levelSelected.getLevelId() == 1) { // TODO for now hardcoded, come up with a proper level abstraction
-			screen.getWorld().getQueen().setPosition(27, 22);
+			screen.getWorld().getQueen().setPosition(8, 4);
+			screen.getWorld().getAvatar().setPosition(2, 9);
+
 			screen.getTopBackground().getObjective().set("Rescue the Ugandan Queen");
 		}
 

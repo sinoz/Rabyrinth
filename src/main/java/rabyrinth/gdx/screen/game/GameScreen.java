@@ -65,7 +65,7 @@ public final class GameScreen implements Screen {
 		table.setFillParent(true);
 
 		table.add(topBackground)
-				.prefHeight(100F)
+				.prefHeight(96F)
 				.top()
 				.left()
 				.expandX()
