@@ -8,10 +8,10 @@ import com.google.common.eventbus.EventBus;
 import rabyrinth.gdx.GdxGame;
 
 /** @author Sino */
-public final class Background extends Table {
+public final class SideBackground extends Table {
 	private final Journal journal;
 
-	public Background(Skin skin, EventBus eventBus) {
+	public SideBackground(Skin skin, EventBus eventBus) {
 		super(skin);
 
 		setBackground("default-background");

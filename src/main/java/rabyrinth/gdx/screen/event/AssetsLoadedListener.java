@@ -1,4 +1,4 @@
-package rabyrinth.gdx.event;
+package rabyrinth.gdx.screen.event;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;

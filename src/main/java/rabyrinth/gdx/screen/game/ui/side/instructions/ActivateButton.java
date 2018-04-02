@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.google.common.eventbus.EventBus;
-import rabyrinth.gdx.screen.game.event.ActivateButtonClicked;
+import rabyrinth.gdx.screen.event.ActivateButtonClicked;
 
 /** @author Sino */
 public final class ActivateButton extends TextButton {

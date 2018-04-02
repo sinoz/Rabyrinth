@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.google.common.eventbus.EventBus;
-import rabyrinth.gdx.event.StartButtonClicked;
+import rabyrinth.gdx.screen.event.StartButtonClicked;
 
 /** @author Sino */
 public final class StartButton extends TextButton {

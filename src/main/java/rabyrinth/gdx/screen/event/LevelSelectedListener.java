@@ -1,4 +1,4 @@
-package rabyrinth.gdx.event;
+package rabyrinth.gdx.screen.event;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
@@ -24,9 +24,15 @@ public final class LevelSelectedListener {
 
 	@Subscribe
 	public void levelSelected(LevelSelected levelSelected) {
+		GameScreen screen = new GameScreen(stage, assets, eventBus);
+
+		if (levelSelected.getLevelId() == 1) { // TODO for now hardcoded, come up with a proper level abstraction
+			screen.getTopBackground().getObjective().set("Rescue the Ugandan Queen");
+		}
+
 		assets.get(Sounds.MUSIC_THE_WAE).stop();
 		assets.get(Sounds.MUST_PRAY).play();
 
-		game.setScreen(new GameScreen(stage, assets, eventBus));
+		game.setScreen(screen);
 	}
 }

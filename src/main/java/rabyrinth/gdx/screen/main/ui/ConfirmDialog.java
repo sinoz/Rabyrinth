@@ -3,7 +3,7 @@ package rabyrinth.gdx.screen.main.ui;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.google.common.eventbus.EventBus;
-import rabyrinth.gdx.event.ConfirmedExit;
+import rabyrinth.gdx.screen.event.ConfirmedExit;
 
 /** @author Sino */
 public final class ConfirmDialog extends Dialog {

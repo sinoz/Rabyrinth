@@ -7,7 +7,7 @@ import com.google.common.eventbus.EventBus;
 import rabyrinth.gdx.asset.Avatars;
 import rabyrinth.gdx.asset.Skins;
 import rabyrinth.gdx.asset.Sounds;
-import rabyrinth.gdx.event.AssetsLoaded;
+import rabyrinth.gdx.screen.event.AssetsLoaded;
 import rabyrinth.gdx.screen.loading.ui.Background;
 
 /** @author Sino */

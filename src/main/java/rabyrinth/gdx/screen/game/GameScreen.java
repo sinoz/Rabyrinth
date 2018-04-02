@@ -7,8 +7,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.google.common.eventbus.EventBus;
 import rabyrinth.gdx.asset.Skins;
-import rabyrinth.gdx.screen.game.event.ActivateButtonClickedListener;
-import rabyrinth.gdx.screen.game.event.SelectedInstructionListener;
+import rabyrinth.gdx.screen.event.ActivateButtonClickedListener;
+import rabyrinth.gdx.screen.event.SelectedInstructionListener;
+import rabyrinth.gdx.screen.game.ui.side.SideBackground;
+import rabyrinth.gdx.screen.game.ui.top.TopBackground;
 import rabyrinth.gdx.screen.game.world.World;
 
 import java.util.ArrayDeque;
@@ -32,8 +34,8 @@ public final class GameScreen implements Screen {
 	private final World world;
 
 	/** The top and side elements. */
-	private final rabyrinth.gdx.screen.game.ui.side.Background sideBackground;
-	private final rabyrinth.gdx.screen.game.ui.top.Background topBackground;
+	private final SideBackground sideBackground;
+	private final TopBackground topBackground;
 
 	/** Creates a new {@link GameScreen}. */
 	public GameScreen(Stage stage, AssetManager assets, EventBus eventBus) {
@@ -46,8 +48,8 @@ public final class GameScreen implements Screen {
 		this.table = new Table(skin);
 		this.world = new World(assets);
 
-		this.sideBackground = new rabyrinth.gdx.screen.game.ui.side.Background(skin, eventBus);
-		this.topBackground = new rabyrinth.gdx.screen.game.ui.top.Background(skin, eventBus);
+		this.sideBackground = new SideBackground(skin, eventBus);
+		this.topBackground = new TopBackground(skin, eventBus);
 
 		configureTable();
 		subscribeListeners();
@@ -119,5 +121,13 @@ public final class GameScreen implements Screen {
 	@Override
 	public void dispose() {
 		world.dispose();
+	}
+
+	public SideBackground getSideBackground() {
+		return sideBackground;
+	}
+
+	public TopBackground getTopBackground() {
+		return topBackground;
 	}
 }

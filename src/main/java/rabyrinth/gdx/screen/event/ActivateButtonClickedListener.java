@@ -1,4 +1,4 @@
-package rabyrinth.gdx.screen.game.event;
+package rabyrinth.gdx.screen.event;
 
 import com.google.common.eventbus.Subscribe;
 import rabyrinth.gdx.screen.game.InstructionType;

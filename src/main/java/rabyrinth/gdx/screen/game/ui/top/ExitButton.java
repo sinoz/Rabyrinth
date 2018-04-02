@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.google.common.eventbus.EventBus;
-import rabyrinth.gdx.event.ConfirmedExit;
+import rabyrinth.gdx.screen.event.ConfirmedExit;
 
 /** @author Sino */
 public final class ExitButton extends TextButton {

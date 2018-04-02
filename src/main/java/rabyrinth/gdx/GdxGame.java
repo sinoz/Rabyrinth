@@ -9,10 +9,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.google.common.eventbus.EventBus;
-import rabyrinth.gdx.event.AssetsLoadedListener;
-import rabyrinth.gdx.event.ConfirmedExitListener;
-import rabyrinth.gdx.event.LevelSelectedListener;
-import rabyrinth.gdx.event.StartButtonClickedListener;
+import rabyrinth.gdx.screen.event.AssetsLoadedListener;
+import rabyrinth.gdx.screen.event.ConfirmedExitListener;
+import rabyrinth.gdx.screen.event.LevelSelectedListener;
+import rabyrinth.gdx.screen.event.StartButtonClickedListener;
 import rabyrinth.gdx.screen.loading.LoadingScreen;
 
 /** @author Sino */
